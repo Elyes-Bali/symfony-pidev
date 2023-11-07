@@ -44,7 +44,7 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/home', name:'home')]
-    public function newTemplateAction(): Response
+    public function Home(): Response
     {
         return $this->render('/classe/home.html.twig');
     }
