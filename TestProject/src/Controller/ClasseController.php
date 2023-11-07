@@ -54,4 +54,16 @@ class ClasseController extends AbstractController
     {
         return $this->render('/dashboard/dash.html.twig');
     }
+
+    #[Route('/login', name:'login')]
+    public function Login(): Response
+    {
+        return $this->render('/User/login.html.twig');
+    }
+
+    #[Route('/register', name:'register')]
+    public function Register(): Response
+    {
+        return $this->render('/User/register.html.twig');
+    }
 }

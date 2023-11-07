@@ -20,6 +20,10 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, .btn-s
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
 }
+.logo1{
+    width: 50px !important;
+    height: 50px !important;
+}
 
 /*           Typography          */
 
@@ -735,6 +739,8 @@ label small{
     margin-right: 20px
 }
 .navbar-brand {
+    width: 50px !important;
+    height: 50px !important;
 
 }
 .main-nav {
