@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}
+    <h1>Reclamation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idrec</th>
+                <th>Intitule</th>
+                <th>Textrec</th>
+                <th>Idu</th>
+                <th>Emailu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.idrec }}</td>
+                <td>{{ reclamation.intitule }}</td>
+                <td>{{ reclamation.textrec }}</td>
+                <td>{{ reclamation.idu }}</td>
+                <td>{{ reclamation.emailu }}</td>
+                <td>
+                    <a href="{{ path('app_reclamation_show', {'idrec': reclamation.idrec}) }}">show</a>
+                    <a href="{{ path('app_reclamation_edit', {'idrec': reclamation.idrec}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+{% endblock %}

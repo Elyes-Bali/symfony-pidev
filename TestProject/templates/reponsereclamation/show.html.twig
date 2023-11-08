@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reponsereclamation{% endblock %}
+
+{% block body %}
+    <h1>Reponsereclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idu</th>
+                <td>{{ reponsereclamation.idu }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ reponsereclamation.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Intitule</th>
+                <td>{{ reponsereclamation.intitule }}</td>
+            </tr>
+            <tr>
+                <th>Textreprec</th>
+                <td>{{ reponsereclamation.textreprec }}</td>
+            </tr>
+            <tr>
+                <th>Idreprec</th>
+                <td>{{ reponsereclamation.idreprec }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponsereclamation_index') }}">back to list</a>
+
+    <a href="{{ path('app_reponsereclamation_edit', {'idreprec': reponsereclamation.idreprec}) }}">edit</a>
+
+    {{ include('reponsereclamation/_delete_form.html.twig') }}
+{% endblock %}

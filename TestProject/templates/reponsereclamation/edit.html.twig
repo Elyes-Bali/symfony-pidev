@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Reponsereclamation{% endblock %}
+
+{% block body %}
+    <h1>Edit Reponsereclamation</h1>
+
+    {{ include('reponsereclamation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reponsereclamation_index') }}">back to list</a>
+
+    {{ include('reponsereclamation/_delete_form.html.twig') }}
+{% endblock %}
