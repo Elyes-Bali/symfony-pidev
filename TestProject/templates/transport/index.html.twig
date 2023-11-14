@@ -1,0 +1,38 @@
+{# templates/transports/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Transports{% endblock %}
+
+{% block body %}
+    <h1>Liste des Transports</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Capacité</th>
+                <th>Date de Départ</th>
+                <th>Date d'Arrivée</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transport in transports %}
+                <tr>
+                    <td>{{ transport.type }}</td>
+                    <td>{{ transport.cap }}</td>
+                    <td>{{ transport.dd|date('Y-m-d') }}</td>
+                    <td>{{ transport.da|date('Y-m-d') }}</td>
+                    <td>{{ transport.prix }}</td>
+                    <td>
+                        <a href="{{ path('transports_show', {'id': transport.id}) }}">Voir</a>
+                        <a href="{{ path('transports_edit', {'id': transport.id}) }}">Modifier</a>
+                        <a href="{{ path('transports_delete', {'id': transport.id}) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

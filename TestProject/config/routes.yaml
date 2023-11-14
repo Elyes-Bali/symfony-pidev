@@ -1,0 +1,24 @@
+index:
+   path: /
+   controller: App\Controller\ClasseController::Home
+
+transports_index:
+    path: /transports
+    controller: App\Controller\TransportController::index
+
+transports_add:
+    path: /transports/add
+    controller: App\Controller\TransportController::add
+
+transports_edit:
+    path: /transports/edit/{id}
+    controller: App\Controller\TransportController::edit
+
+transports_show:
+    path: /transports/show/{id}
+    controller: App\Controller\TransportController::show
+
+transports_delete:
+    path: /transports/delete/{id}
+    controller: App\Controller\TransportController::delete
+

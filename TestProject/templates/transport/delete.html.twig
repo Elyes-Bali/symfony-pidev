@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Transport{% endblock %}
+
+{% block body %}
+    <h1>Delete Transport</h1>
+
+    <p>Are you sure you want to delete this transport?</p>
+
+    <dl>
+        <dt>ID</dt>
+        <dd>{{ transport.id }}</dd>
+        <dt>Type</dt>
+        <dd>{{ transport.type }}</dd>
+        <dt>Capacity</dt>
+        <dd>{{ transport.cap }}</dd>
+        <dt>Departure Date</dt>
+        <dd>{{ transport.dd|date('Y-m-d') }}</dd>
+        <dt>Arrival Date</dt>
+        <dd>{{ transport.da|date('Y-m-d') }}</dd>
+        <dt>Price</dt>
+        <dd>{{ transport.prix }}</dd>
+    </dl>
+
+    <form method="post">
+        <input type="submit" value="Delete">
+    </form>
+
+    <a href="{{ path('transports_index') }}">Back to list</a>
+{% endblock %}
