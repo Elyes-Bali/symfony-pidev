@@ -1,0 +1,25 @@
+la longueur du tableau est : <b>{{auth|length}}</b></br>
+{% set count = 0 %}
+{% for b in auth %}
+{% if b.username != 'Victor Hugo' %}
+{% set count = count + 1 %}
+{% endif %}
+{% endfor %}
+<p>Le nombre d'utilisateurs est : {{count}}</p>
+
+<table border=1>
+<tr>
+<th>Id</th><th>pic</th><th>username</th><th>email</th>
+</tr>
+{% for a in auth %}
+<tr>
+    <td>{{a.id}}</td>
+    <td>{{a.picture}}</td>
+    <td>{{a.username |upper}}</td>
+    <td>{{a.email}}</td>
+    <td>{{a.nb_books}}</td>
+    <td><a href="{{path('DD',{'i':a.id})}}">Detail</a></td>
+</tr>
+{%else%} Table not found!!
+{% endfor %}
+</table>
