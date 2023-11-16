@@ -2,53 +2,29 @@
 
 namespace App\Entity;
 
+use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Post
- *
- * @ORM\Table(name="post")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
-     */
-    private $titre;
+    #[ORM\Column]
+    private ?string $titre=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sujet", type="text", length=65535, nullable=false)
-     */
-    private $sujet;
+    #[ORM\Column]
+    private ?string $sujet=null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
-     */
-    private $image;
+    #[ORM\Column]
+    private ?string $image=null;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="date", type="date", nullable=true)
-     */
-    private $date;
+    #[ORM\Column(name:"date", type:"date", nullable:true)]
+private ?\DateTime $date = null;
 
     public function getId(): ?int
     {
@@ -84,7 +60,7 @@ class Post
         return $this->image;
     }
 
-    public function setImage(?string $image): static
+    public function setImage(string $image): static
     {
         $this->image = $image;
 
@@ -102,6 +78,7 @@ class Post
 
         return $this;
     }
+
 
 
 }

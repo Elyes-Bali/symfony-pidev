@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Reclamation
  *
- * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="idU", columns={"idU"}), @ORM\Index(name="emailU", columns={"emailU"})})
+ * @ORM\Table(name="reclamation", indexes={@ORM\Index(name="emailU", columns={"emailU"}), @ORM\Index(name="idU", columns={"idU"})})
  * @ORM\Entity
  */
 class Reclamation
@@ -48,59 +48,6 @@ class Reclamation
      * @ORM\Column(name="emailU", type="string", length=255, nullable=false)
      */
     private $emailu;
-
-    public function getIdrec(): ?int
-    {
-        return $this->idrec;
-    }
-
-    public function getIntitule(): ?string
-    {
-        return $this->intitule;
-    }
-
-    public function setIntitule(string $intitule): static
-    {
-        $this->intitule = $intitule;
-
-        return $this;
-    }
-
-    public function getTextrec(): ?string
-    {
-        return $this->textrec;
-    }
-
-    public function setTextrec(string $textrec): static
-    {
-        $this->textrec = $textrec;
-
-        return $this;
-    }
-
-    public function getIdu(): ?int
-    {
-        return $this->idu;
-    }
-
-    public function setIdu(int $idu): static
-    {
-        $this->idu = $idu;
-
-        return $this;
-    }
-
-    public function getEmailu(): ?string
-    {
-        return $this->emailu;
-    }
-
-    public function setEmailu(string $emailu): static
-    {
-        $this->emailu = $emailu;
-
-        return $this;
-    }
 
 
 }

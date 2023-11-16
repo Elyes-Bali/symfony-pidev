@@ -15,7 +15,7 @@ class CommentaireType extends AbstractType
             ->add('contenu')
             ->add('nom')
             ->add('datenow')
-            ->add('post')
+           
         ;
     }
 

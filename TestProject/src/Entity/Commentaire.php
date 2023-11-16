@@ -2,55 +2,28 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommentaireRepository;
 
-/**
- * Commentaire
- *
- * @ORM\Table(name="commentaire", indexes={@ORM\Index(name="fk_Commentaire_post", columns={"post_id"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: CommentaireRepository::class)]
 class Commentaire
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_coment", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idComent;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idComent=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="contenu", type="text", length=65535, nullable=false)
-     */
-    private $contenu;
+    #[ORM\Column]
+    private ?string $contenu=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+    #[ORM\Column]
+    private ?string $nom=null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateNow", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
-    private $datenow = 'CURRENT_TIMESTAMP';
+    #[ORM\Column]
+    private ?string $datenow=null;
 
-    /**
-     * @var \Post
-     *
-     * @ORM\ManyToOne(targetEntity="Post")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     * })
-     */
+    #[ORM\ManyToOne(targetEntity: Post::class)]
+    #[ORM\JoinColumn(name: "post_id", referencedColumnName: "id")]
     private $post;
 
     public function getIdComent(): ?int
@@ -82,12 +55,12 @@ class Commentaire
         return $this;
     }
 
-    public function getDatenow(): ?\DateTimeInterface
+    public function getDatenow(): ?string
     {
         return $this->datenow;
     }
 
-    public function setDatenow(\DateTimeInterface $datenow): static
+    public function setDatenow(string $datenow): static
     {
         $this->datenow = $datenow;
 

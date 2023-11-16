@@ -1,39 +1,47 @@
-{% extends 'base.html.twig' %}
+{% include 'dashboard/navbar.html.twig' %}
 
 {% block title %}Commentaire index{% endblock %}
 
 {% block body %}
+
+
     <h1>Commentaire index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdComent</th>
-                <th>Contenu</th>
-                <th>Nom</th>
-                <th>Datenow</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="table-primary">IdComent</th>
+            <th class="table-primary">Contenu</th>
+            <th class="table-primary">Nom</th>
+            <th class="table-primary">Datenow</th>
+            <th class="table-primary">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for commentaire in commentaires %}
             <tr>
-                <td>{{ commentaire.idComent }}</td>
-                <td>{{ commentaire.contenu }}</td>
-                <td>{{ commentaire.nom }}</td>
-                <td>{{ commentaire.datenow ? commentaire.datenow|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="table-secondary">{{ commentaire.idComent }}</td>
+                <td class="table-secondary">{{ commentaire.contenu }}</td>
+                <td class="table-secondary">{{ commentaire.nom }}</td>
+                <td class="table-secondary">{{ commentaire.datenow }}</td>
                 <td>
-                    <a href="{{ path('app_commentaire_show', {'idComent': commentaire.idComent}) }}">show</a>
-                    <a href="{{ path('app_commentaire_edit', {'idComent': commentaire.idComent}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_commentaire_show', {'idComent': commentaire.idComent}) }}">Show</a>
+                    <a class="btn btn-warning" href="{{ path('app_commentaire_edit', {'idComent': commentaire.idComent}) }}">Edit</a>
+                  
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5" class="table-secondary">No records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
+
 
     <a href="{{ path('app_commentaire_new') }}">Create new</a>
+
 {% endblock %}
+
+
+

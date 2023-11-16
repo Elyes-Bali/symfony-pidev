@@ -1,34 +1,33 @@
-{% extends 'base.html.twig' %}
-
+{% include 'dashboard/navbar.html.twig' %}
 {% block title %}Commentaire{% endblock %}
-
 {% block body %}
+{% block nav %}
     <h1>Commentaire</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>IdComent</th>
-                <td>{{ commentaire.idComent }}</td>
-            </tr>
-            <tr>
-                <th>Contenu</th>
-                <td>{{ commentaire.contenu }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ commentaire.nom }}</td>
-            </tr>
-            <tr>
-                <th>Datenow</th>
-                <td>{{ commentaire.datenow ? commentaire.datenow|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table">
+    <thead>
+        <tr>
+            <th class="table-primary">IdComent</th>
+            <th class="table-primary">Contenu</th>
+            <th class="table-primary">Nom</th>
+            <th class="table-primary">Datenow</th>
+            <th class="table-primary">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="table-secondary">{{ commentaire.idComent }}</td>
+            <td class="table-secondary">{{ commentaire.contenu }}</td>
+            <td class="table-secondary">{{ commentaire.nom }}</td>
+            <td class="table-secondary">{{ commentaire.datenow }}</td>
+            <td>
+                <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                <a class="btn btn-success" href="{{ path('app_commentaire_edit', {'idComent': commentaire.idComent}) }}"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-    <a href="{{ path('app_commentaire_index') }}">back to list</a>
-
-    <a href="{{ path('app_commentaire_edit', {'idComent': commentaire.idComent}) }}">edit</a>
-
-    {{ include('commentaire/_delete_form.html.twig') }}
 {% endblock %}
+{% endblock %}
+
