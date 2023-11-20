@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Circuit;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,6 +51,17 @@ class ClasseController extends AbstractController
         return $this->render('/classe/home.html.twig');
     }
 
+    #[Route('/front', name:'fr')]
+    public function Front(): Response
+    {
+        return $this->render('/classe/front.html.twig');
+    }
+
+    #[Route('/service', name:'sr')]
+    public function service(): Response
+    {
+        return $this->render('/classe/service.html.twig');
+    }
     #[Route('/dashboard', name:'dash')]
     public function Dashboard(): Response
     {
@@ -65,5 +78,26 @@ class ClasseController extends AbstractController
     public function Register(): Response
     {
         return $this->render('/User/register.html.twig');
+    }
+
+    #[Route('/client', name:'clients')]
+    public function Clients(EntityManagerInterface $entityManager): Response
+    {
+        $circuits = $entityManager
+            ->getRepository(Circuit::class)
+            ->findAll();
+
+        return $this->render('circuit/clientcircuit.html.twig', [
+            'circuits' => $circuits,
+        ]);
+    }
+
+
+    #[Route('/{id}', name: 'detail', methods: ['GET'])]
+    public function show(Circuit $circuit): Response
+    {
+        return $this->render('circuit/circuitdetails.html.twig', [
+            'circuit' => $circuit,
+        ]);
     }
 }

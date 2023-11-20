@@ -49,58 +49,5 @@ class Reclamation
      */
     private $emailu;
 
-    public function getIdrec(): ?int
-    {
-        return $this->idrec;
-    }
-
-    public function getIntitule(): ?string
-    {
-        return $this->intitule;
-    }
-
-    public function setIntitule(string $intitule): static
-    {
-        $this->intitule = $intitule;
-
-        return $this;
-    }
-
-    public function getTextrec(): ?string
-    {
-        return $this->textrec;
-    }
-
-    public function setTextrec(string $textrec): static
-    {
-        $this->textrec = $textrec;
-
-        return $this;
-    }
-
-    public function getIdu(): ?int
-    {
-        return $this->idu;
-    }
-
-    public function setIdu(int $idu): static
-    {
-        $this->idu = $idu;
-
-        return $this;
-    }
-
-    public function getEmailu(): ?string
-    {
-        return $this->emailu;
-    }
-
-    public function setEmailu(string $emailu): static
-    {
-        $this->emailu = $emailu;
-
-        return $this;
-    }
-
 
 }

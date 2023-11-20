@@ -4,71 +4,56 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Circuit
- *
- * @ORM\Table(name="circuit")
- * @ORM\Entity
- */
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\CircuitRepository;
+
+
+#[ORM\Entity(repositoryClass: CircuitRepository::class)]
 class Circuit
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="prix", type="integer", nullable=false)
-     */
-    private $prix;
+    private ?int $id = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="depart", type="string", length=255, nullable=false)
-     */
-    private $depart;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="arrive", type="string", length=255, nullable=false)
-     */
-    private $arrive;
+    #[ORM\Column]
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="temps", type="string", length=255, nullable=false)
-     */
-    private $temps;
+    #[Assert\NotBlank(message: "Prix is required")]
+    #[Assert\Type(type: "integer", message: "Prix must be a valid integer")]
+    #[Assert\Positive(message: "Prix must be a positive number")]
+    private ?int $prix = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="categorie", type="string", length=255, nullable=false)
-     */
-    private $categorie;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=255, nullable=false)
-     */
-    private $description;
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Depart is required')]
+    private ?string $depart = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", length=255, nullable=false)
-     */
-    private $pays;
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Arrive is required')]
+    private ?string $arrive = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Temps is required')]
+    private ?string $temps = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Categorie is required')]
+    private ?string $categorie = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Description is required')]
+    private ?string $description = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Pays is required')]
+    private ?string $pays = null;
+
+
+    #[ORM\ManyToOne(targetEntity: Destination::class)]
+    #[ORM\JoinColumn(name: 'destination_id', referencedColumnName: 'iddest')]
+    private $destination;
 
     public function getId(): ?int
     {
@@ -159,5 +144,15 @@ class Circuit
         return $this;
     }
 
+    public function getDestination(): ?Destination
+    {
+        return $this->destination;
+    }
 
+    public function setDestination(?Destination $destination): static
+    {
+        $this->destination = $destination;
+
+        return $this;
+    }
 }

@@ -3,29 +3,26 @@
 namespace App\Test\Controller;
 
 use App\Entity\Circuit;
+use App\Repository\CircuitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CircuitControllerTest extends WebTestCase
 {
     private KernelBrowser $client;
-    private EntityManagerInterface $manager;
-    private EntityRepository $repository;
+    private CircuitRepository $repository;
     private string $path = '/circuit/';
+    private EntityManagerInterface $manager;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $this->manager = static::getContainer()->get('doctrine')->getManager();
-        $this->repository = $this->manager->getRepository(Circuit::class);
+        $this->repository = static::getContainer()->get('doctrine')->getRepository(Circuit::class);
 
         foreach ($this->repository->findAll() as $object) {
             $this->manager->remove($object);
         }
-
-        $this->manager->flush();
     }
 
     public function testIndex(): void
@@ -41,6 +38,8 @@ class CircuitControllerTest extends WebTestCase
 
     public function testNew(): void
     {
+        $originalNumObjectsInRepository = count($this->repository->findAll());
+
         $this->markTestIncomplete();
         $this->client->request('GET', sprintf('%snew', $this->path));
 
@@ -54,11 +53,12 @@ class CircuitControllerTest extends WebTestCase
             'circuit[categorie]' => 'Testing',
             'circuit[description]' => 'Testing',
             'circuit[pays]' => 'Testing',
+            'circuit[destination]' => 'Testing',
         ]);
 
-        self::assertResponseRedirects('/sweet/food/');
+        self::assertResponseRedirects('/circuit/');
 
-        self::assertSame(1, $this->getRepository()->count([]));
+        self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
     }
 
     public function testShow(): void
@@ -72,6 +72,7 @@ class CircuitControllerTest extends WebTestCase
         $fixture->setCategorie('My Title');
         $fixture->setDescription('My Title');
         $fixture->setPays('My Title');
+        $fixture->setDestination('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -88,13 +89,14 @@ class CircuitControllerTest extends WebTestCase
     {
         $this->markTestIncomplete();
         $fixture = new Circuit();
-        $fixture->setPrix('Value');
-        $fixture->setDepart('Value');
-        $fixture->setArrive('Value');
-        $fixture->setTemps('Value');
-        $fixture->setCategorie('Value');
-        $fixture->setDescription('Value');
-        $fixture->setPays('Value');
+        $fixture->setPrix('My Title');
+        $fixture->setDepart('My Title');
+        $fixture->setArrive('My Title');
+        $fixture->setTemps('My Title');
+        $fixture->setCategorie('My Title');
+        $fixture->setDescription('My Title');
+        $fixture->setPays('My Title');
+        $fixture->setDestination('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -109,6 +111,7 @@ class CircuitControllerTest extends WebTestCase
             'circuit[categorie]' => 'Something New',
             'circuit[description]' => 'Something New',
             'circuit[pays]' => 'Something New',
+            'circuit[destination]' => 'Something New',
         ]);
 
         self::assertResponseRedirects('/circuit/');
@@ -122,27 +125,34 @@ class CircuitControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getCategorie());
         self::assertSame('Something New', $fixture[0]->getDescription());
         self::assertSame('Something New', $fixture[0]->getPays());
+        self::assertSame('Something New', $fixture[0]->getDestination());
     }
 
     public function testRemove(): void
     {
         $this->markTestIncomplete();
-        $fixture = new Circuit();
-        $fixture->setPrix('Value');
-        $fixture->setDepart('Value');
-        $fixture->setArrive('Value');
-        $fixture->setTemps('Value');
-        $fixture->setCategorie('Value');
-        $fixture->setDescription('Value');
-        $fixture->setPays('Value');
 
-        $this->manager->remove($fixture);
+        $originalNumObjectsInRepository = count($this->repository->findAll());
+
+        $fixture = new Circuit();
+        $fixture->setPrix('My Title');
+        $fixture->setDepart('My Title');
+        $fixture->setArrive('My Title');
+        $fixture->setTemps('My Title');
+        $fixture->setCategorie('My Title');
+        $fixture->setDescription('My Title');
+        $fixture->setPays('My Title');
+        $fixture->setDestination('My Title');
+
+        $this->manager->persist($fixture);
         $this->manager->flush();
+
+        self::assertSame($originalNumObjectsInRepository + 1, count($this->repository->findAll()));
 
         $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
         $this->client->submitForm('Delete');
 
+        self::assertSame($originalNumObjectsInRepository, count($this->repository->findAll()));
         self::assertResponseRedirects('/circuit/');
-        self::assertSame(0, $this->repository->count([]));
     }
 }
