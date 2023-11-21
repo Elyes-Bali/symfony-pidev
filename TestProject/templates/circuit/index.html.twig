@@ -191,18 +191,16 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <form action="{{ path('search_circuits') }}" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </button>
+        </div>
+    </div>
+</form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -385,15 +383,15 @@
 
                 </nav>
 
-{% block title %}Circuit index{% endblock %}
+{% block title %}Les Circuit{% endblock %}
 
 {% block body %}
-    <h1>Circuit index</h1>
+    
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+              
                 <th>Prix</th>
                 <th>Depart</th>
                 <th>Arrive</th>
@@ -407,7 +405,7 @@
         <tbody>
         {% for circuit in circuits %}
             <tr>
-                <td>{{ circuit.id }}</td>
+          
                 <td>{{ circuit.prix }}</td>
                 <td>{{ circuit.depart }}</td>
                 <td>{{ circuit.arrive }}</td>
@@ -416,8 +414,9 @@
                 <td>{{ circuit.description }}</td>
                 <td>{{ circuit.pays }}</td>
                 <td>
-                    <a href="{{ path('app_circuit_show', {'id': circuit.id}) }}">show</a>
-                    <a href="{{ path('app_circuit_edit', {'id': circuit.id}) }}">edit</a>
+                 
+                    <a class="btn btn-primary" href="{{ path('app_circuit_edit', {'id': circuit.id}) }}">edit</a>
+                        {{ include('circuit/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

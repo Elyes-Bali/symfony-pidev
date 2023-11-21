@@ -92,6 +92,8 @@ class ClasseController extends AbstractController
         ]);
     }
 
+    
+
 
     #[Route('/{id}', name: 'detail', methods: ['GET'])]
     public function show(Circuit $circuit): Response

@@ -45,4 +45,17 @@ class CircuitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+// CircuitRepository.php
+public function search($query)
+{
+    return $this->createQueryBuilder('c')
+        ->andWhere('c.depart LIKE :query OR c.arrive LIKE :query OR c.description LIKE :query OR c.prix LIKE :query')
+        ->setParameter('query', '%' . $query . '%')
+        ->getQuery()
+        ->getResult();
+}
+
+
 }

@@ -1,47 +1,66 @@
 {% include 'classe/serve.html.twig' %}
+<link rel="stylesheet" href="{{ asset('temp/css/client.css') }}">
+<div class="client">
+<a class="btn btn-secondary mb-4" href="{{ path('client') }}">back to list</a>
+<div class="d-flex">
 
-{% block title %}Circuit{% endblock %}
+  <section class="col-md-7 imging">
+    <img src="{{asset('temp/images/travel.jpg')}}" alt="About" class="w-50 " />
+  </section>
+
+  <section class="col-md-4 desc ">
+    <div className="container my-5 py-5">
+      <div className="row">
+        <div className="col-md-12">
+          <h3 className="fs-5"> Destination: {{ circuit.pays }}</h3>
+          <h1 className="display-6">
+            Plus de <b>Detail</b> 
+          </h1>
+          <hr />
+          <p className="lead mb-4"> <b>Point de depart :</b>
+            {{ circuit.depart }}
+          </p>
+          <p className="lead mb-4"> <b>Point d'arrive :</b>
+            {{ circuit.arrive }}
+          </p>
+          <p className="lead mb-4"><b>le Prix : </b>
+            {{ circuit.Prix }}
+          </p>
+          <p className="lead mb-4"><b>Durée de Vol</b>
+            {{ circuit.temps }}
+          </p>
+          <p className="lead mb-4"><b>Plus Informations :</b>
+            {{ circuit.description }}
+          </p>
+          <p className="lead mb-4"><b>Categorie : </b>
+            {{ circuit.Categorie }}
+          </p>
 
 
-    <h1>Circuit</h1>
+  
+        {% if weatherData %}
+    <h2>Informations météorologiques pour {{ circuit.arrive }} :</h2>
+    <p>Temperature: {{ weatherData.main.temp - 273.15 }}°C</p>
+    <p>Weather: {{ weatherData.weather[0].description }}</p>
+    <!-- Display other relevant weather information -->
+{% else %}
+    <p>No weather data available.</p>
+{% endif %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ circuit.id }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ circuit.prix }}</td>
-            </tr>
-            <tr>
-                <th>Depart</th>
-                <td>{{ circuit.depart }}</td>
-            </tr>
-            <tr>
-                <th>Arrive</th>
-                <td>{{ circuit.arrive }}</td>
-            </tr>
-            <tr>
-                <th>Temps</th>
-                <td>{{ circuit.temps }}</td>
-            </tr>
-            <tr>
-                <th>Categorie</th>
-                <td>{{ circuit.categorie }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ circuit.description }}</td>
-            </tr>
-            <tr>
-                <th>Pays</th>
-                <td>{{ circuit.pays }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_circuit_index') }}">back to list</a>
+
+
+          <a
+            href=""
+            class="btn btn-info rounded-pill px-4 py-2"
+          >
+            Abonnée
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
 
 

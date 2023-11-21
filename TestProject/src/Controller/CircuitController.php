@@ -6,6 +6,7 @@ use App\Entity\Circuit;
 use App\Form\Circuit1Type;
 use App\Repository\CircuitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,7 +57,10 @@ class CircuitController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_circuit_show', methods: ['GET'])]
+  
+ 
+
+    #[Route('/admin/{id}', name: 'app_circuit_show', methods: ['GET'])]
     public function show(Circuit $circuit): Response
     {
         return $this->render('circuit/show.html.twig', [
@@ -64,6 +68,38 @@ class CircuitController extends AbstractController
         ]);
     }
 
+    #[Route('/client/{id}', name: 'client_show', methods: ['GET'])]
+    public function clientshow(Circuit $circuit): Response
+    {
+         // Replace 'YOUR_API_KEY' with the actual API key from OpenWeatherMap
+         $apiKey = '171ed24ecb9a792457ced5f5dab6c147';
+
+         // Replace with the OpenWeatherMap API endpoint for current weather
+         $apiEndpoint = 'https://api.openweathermap.org/data/2.5/weather';
+         $client = new Client();
+         // Get the destination city from the Circuit entity
+         $city = $circuit->getArrive();
+ 
+         try {
+             $response = $client->get($apiEndpoint, [
+                 'query' => [
+                     'q' => $city,
+                 ],
+             ]);
+ 
+             $data = json_decode($response->getBody(), true);
+             dump($data);
+        return $this->render('circuit/clientdetail.html.twig', [
+            'circuit' => $circuit,
+            'weatherData' => $data,
+        ]);
+    } catch (\Exception $e) {
+     
+        return $this->render('circuit/error.html.twig', [
+            'error' => $e->getMessage(),
+        ]);
+    }
+    }
 
 
     #[Route('/{id}/edit', name: 'app_circuit_edit', methods: ['GET', 'POST'])]
@@ -96,11 +132,18 @@ class CircuitController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'client_show', methods: ['GET'])]
-    public function showing(Circuit $circuit): Response
-    {
-        return $this->render('circuit/clientdetail.html.twig', [
-            'circuit' => $circuit,
-        ]);
-    }
+    #[Route('/search', name: 'search_circuits', methods: ['GET'])]
+public function search(Request $request, CircuitRepository $circuitRepository): Response
+{
+    $query = $request->query->get('query');
+    $circuits = $circuitRepository->search($query);
+
+    return $this->render('circuit/index.html.twig', [
+        'circuits' => $circuits,
+    ]);
+}
+
+    
+
+   
 }
