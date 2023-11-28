@@ -56,6 +56,12 @@ public function search($query)
         ->getQuery()
         ->getResult();
 }
-
+public function findAllSortedByPriceQueryBuilder()
+{
+    return $this->createQueryBuilder('c')
+        ->orderBy('c.prix', 'ASC')
+        ->getQuery()
+        ->getResult();
+}
 
 }

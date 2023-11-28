@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
-
+<link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="{{ asset('temp/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('temp/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('temp/css/owl.theme.default.min.css') }}">
@@ -22,13 +22,47 @@
 <link rel="stylesheet" href="{{ asset('temp/css/daterangepicker.css') }}">
 <link rel="stylesheet" href="{{ asset('temp/css/aos.css') }}">
 <link rel="stylesheet" href="{{ asset('temp/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('temp/css/clt.css') }}">
+<style>
+    /* Add this style block to your existing styles or in a separate CSS file */
+    div#sort-container {
+        margin-bottom: 20px; /* Adjust margin as needed */
+        text-align: center; /* Center the content */
+    }
 
+    div#sort-container p {
+        display: inline-block;
+        margin-bottom: 0; /* Remove bottom margin */
+        margin-right: 10px; /* Adjust margin as needed */
+        font-weight: bold; /* Make the text bold */
+        color: #333; /* Text color */
+        font-size: 16px; /* Adjust font size */
+    }
+
+    select#sort {
+        padding: 10px; /* Adjust padding as needed */
+        border: 2px solid #3498db; /* Border color */
+        border-radius: 5px; /* Border radius for a rounded look */
+        font-size: 14px; /* Adjust font size */
+        background-color: #f8f8f8; /* Background color */
+        color: #333; /* Text color */
+        cursor: pointer; /* Show pointer cursor on hover */
+        transition: border-color 0.3s; /* Smooth transition for border color change */
+    }
+
+    select#sort:hover {
+        border-color: #2980b9; /* Change border color on hover */
+    }
+
+    select#sort:focus {
+        outline: none; /* Remove the default focus outline */
+        border-color: #2980b9; /* Change border color on focus */
+    }
+</style>
   <title>Tour Free Bootstrap Template for Travel Agency by Untree.co</title>
 </head>
 
 <body>
-
-
   <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
       <div class="site-mobile-menu-close">
@@ -61,7 +95,7 @@
               <li><a href="#">Menu Three</a></li>
             </ul>
           </li>
-          <li class="active"><a href="services.html">Services</a></li>
+          <li class="active"><a href="client">Services</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact Us</a></li>
         </ul>
@@ -88,17 +122,45 @@
     </div>
   </div>
 
-  
-  
+<form id="searchForm" action="{{ path('searcher') }}" method="get" class=" d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search search-form">
+  <div class="input-group">
+        <input type="text" class="form-control bg-light border-0 small" id="searchQuery" name="query" placeholder="Search for..."
+            aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+<div id="sort-container">
+    <p>Sort by:</p>
+     <select id="sort" name="sort" onchange="location = this.value;">
+        <option value="">--</option>
+        <option value="{{ path('client', {'sort': 'name_asc'}) }}" {% if app.request.query.get('sort') == 'name_asc' %}selected{% endif %}>Name (A to Z)</option>
+        <option value="{{ path('client', {'sort': 'name_desc'}) }}" {% if app.request.query.get('sort') == 'name_desc' %}selected{% endif %}>Name (Z to A)</option>
+        <!-- Add more sorting options as needed -->
+    </select>
+</div>
+
   <div class="untree_co-section">
     <div class="container">
-      <div class="row">
-         {% for circuit in circuits %}
+      <div class="row" id="circuitsContainer">
+        {% set sortOrder = app.request.query.get('sort') %}
+    {% if sortOrder == 'name_asc' %}
+        {% set sortedCircuits = circuits|sort((c1, c2) => c1.depart > c2.depart) %}
+    {% elseif sortOrder == 'name_desc' %}
+        {% set sortedCircuits = circuits|sort((c1, c2) => c1.depart < c2.depart) %}
+    {% else %}
+        {% set sortedCircuits = circuits %}
+    {% endif %}
+    {% for circuit in sortedCircuits %}
         <div class="col-6 col-md-6 col-lg-3">
           <div class="media-1">
            
             <div class="untree_co-section">
-		<div class="container">
+	   	<div class="container">
 			
 
 			<div class="owl-carousel owl-3-slider">
@@ -158,10 +220,10 @@
 					</a> 
 				</div>
 
-			</div>
+		   	</div>
 
-		</div>
-	</div>
+		     </div>
+	         </div>
             <div class="d-flex">
               <div>
               <p>Prix : {{ circuit.prix }}</p>
@@ -190,28 +252,28 @@
         <div class="col-6 col-md-6 col-lg-3">
           <div class="service text-center">
             <span class="icon-paper-plane"></span>
-            <h3>Excellence in Travel</h3>
+            <h3>L'excellence dans les voyages</h3>
            
           </div>
         </div>
         <div class="col-6 col-md-6 col-lg-3">
           <div class="service text-center">
             <span class="icon-tag"></span>
-            <h3>Discover Best</h3>
+            <h3>Découvrir Best</h3>
            
           </div>
         </div>
         <div class="col-6 col-md-6 col-lg-3">
           <div class="service text-center">
             <span class="icon-user"></span>
-            <h3>A New Moments of Life</h3>
+            <h3>Un nouveau moment de vie</h3>
            
           </div>
         </div>
         <div class="col-6 col-md-6 col-lg-3">
           <div class="service text-center">
             <span class="icon-support"></span>
-            <h3>Joy To Your Journey</h3>
+            <h3>Joie de votre voyage</h3>
            
           </div>
         </div>
@@ -225,9 +287,9 @@
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
-          <h2 class="mb-2 text-white">Lets you Explore the Best. Contact Us Now</h2>
-          <p class="mb-4 lead text-white text-white-opacity">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, fugit?</p>
-          <p class="mb-0"><a href="booking.html" class="btn btn-outline-white text-white btn-md font-weight-bold">Get in touch</a></p>
+          <h2 class="mb-2 text-white">Si vous rencontrez un problème</h2>
+          <p class="mb-4 lead text-white text-white-opacity">contactez-nous</p>
+          <p class="mb-0"><a href="booking.html" class="btn btn-outline-white text-white btn-md font-weight-bold">Prendre contact</a></p>
         </div>
       </div>
     </div>
@@ -239,8 +301,8 @@
         <div class="row">
           <div class="col-md-6 col-lg-4">
             <div class="widget">
-              <h3 class="heading">About Tour</h3>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <h3 class="heading">À propos de Best-Trip</h3>
+              <p>La meilleure agence avec les meilleures offres</p>
             </div>
             <div class="widget">
               <ul class="list-unstyled social">
@@ -279,9 +341,9 @@
             <div class="widget">
               <h3 class="heading">Contact</h3>
               <ul class="list-unstyled quick-info links">
-                <li class="email"><a href="#">mail@example.com</a></li>
-                <li class="phone"><a href="#">+1 222 212 3819</a></li>
-                <li class="address"><a href="#">43 Raymouth Rd. Baltemoer, London 3910</a></li>
+                <li class="email"><a href="#">BestTrip@gmail.com</a></li>
+                <li class="phone"><a href="#">+216 222 212 38</a></li>
+                <li class="address"><a href="#">Tunisia</a></li>
               </ul>
             </div>
           </div>
@@ -295,7 +357,7 @@
       <div class="container">
         <div class="row text-center">
           <div class="col-md-8 mb-3 mb-md-0 mx-auto">
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co" class="link-highlight">Untree.co</a> <!-- License information: https://untree.co/license/ -->
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co" class="link-highlight">Best Trip</a> 
             </p>
           </div>
           
@@ -310,6 +372,7 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
+
 
   <script src="{{asset('temp/js/jquery-3.4.1.min.js')}}"></script>
   <script src="{{asset('temp/js/popper.min.js')}}"></script>
@@ -328,16 +391,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
