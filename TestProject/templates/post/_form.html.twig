@@ -1,0 +1,36 @@
+
+{{form_start(form,{'attr' :{'novalidate':'novalidate'}})}}
+<div class="form-group">
+    {{ form_label(form.titre, 'Title', {'label_attr': {'class': 'form-group'}}) }}
+    {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.titre,{ 'attr': {'class': 'text-danger'} }) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.sujet, 'Subject', {'label_attr': {'class': 'form-group'}}) }}
+    {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.sujet,{ 'attr': {'class': 'text-danger'} }) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.image, 'Image', {'label_attr': {'class': 'form-group'}}) }}
+    <div class="custom-file">
+        {{ form_widget(form.image, {'attr': {'class': 'form-control-file ', 'id': 'customFile'}}) }}
+
+    </div>
+    {{ form_errors(form.image,{ 'attr': {'class': 'text-danger'} }) }}
+</div>
+
+
+<div class="form-group">
+    {{ form_label(form.date, 'Date', {'label_attr': {'class': 'form-group'}}) }}
+    <div class="datepicker">
+        {{ form_widget(form.date, {'attr': {'class': 'form-control datepicker-input'}}) }}
+        <!-- Optionally, include a datepicker icon -->
+    </div>
+    {{ form_errors(form.date,{ 'attr': {'class': 'text-danger'} }) }}
+</div>
+
+<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

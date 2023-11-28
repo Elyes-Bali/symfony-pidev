@@ -1,0 +1,40 @@
+{# templates/postfront/stat.html.twig #}
+
+{% extends 'classe/front.html.twig' %}
+
+{% block title %}Post Statistics{% endblock %}
+
+{% block body %}
+    <h1>Post Statistics</h1>
+
+    {% if postStatistics is not empty %}
+        <canvas id="postChart" width="400" height="200"></canvas>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var ctx = document.getElementById('postChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [{% for postStat in postStatistics %}"{{ postStat[0].titre }}",{% endfor %}],
+                        datasets: [{
+                            label: 'Number of Comments',
+                            data: [{% for postStat in postStatistics %}{{ postStat['commentCount'] }},{% endfor %}],
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    {% else %}
+        <p>No post statistics available.</p>
+    {% endif %}
+{% endblock %}

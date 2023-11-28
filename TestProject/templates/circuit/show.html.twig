@@ -1,0 +1,50 @@
+
+
+{% block title %}Circuit{% endblock %}
+
+{% block body %}
+    <h1>Circuit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ circuit.id }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ circuit.prix }}</td>
+            </tr>
+            <tr>
+                <th>Depart</th>
+                <td>{{ circuit.depart }}</td>
+            </tr>
+            <tr>
+                <th>Arrive</th>
+                <td>{{ circuit.arrive }}</td>
+            </tr>
+            <tr>
+                <th>Temps</th>
+                <td>{{ circuit.temps }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ circuit.categorie }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ circuit.description }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ circuit.pays }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_circuit_index') }}">back to list</a>
+
+    <a href="{{ path('app_circuit_edit', {'id': circuit.id}) }}">edit</a>
+
+    {{ include('circuit/_delete_form.html.twig') }}
+{% endblock %}

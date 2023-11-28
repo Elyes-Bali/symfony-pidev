@@ -1,0 +1,104 @@
+
+
+<div class="card-body card-block">
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}},{'attr':{'class':'form-horizontal'}}) }}
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.pays,"Paye :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.pays,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.pays) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.pays) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.depart,"Depart :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.depart,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.depart) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.depart) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.arrive,"Arrive :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.arrive,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.arrive) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.arrive) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.temps,"Temps :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.temps,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.temps) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.temps) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.prix,"Prix :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.prix,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.prix) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.prix) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.categorie,"Categorie :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.categorie,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.categorie) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.categorie) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.description,"Description :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.description,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.description) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.description) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.destination,"Destination :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.destination,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.destination) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.destination) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+           
+
+            <div align="center" class="card-footer">
+                <button class="btn btn-success"><i class="zmdi zmdi-plus"></i>{{ button_label|default('Ajouter') }}</button>
+                <button class="btn btn-primary"><a style="color:white;" href="{{ path('app_circuit_index') }}">Consulter Liste</a></button>
+            </div>
+        {{ form_end(form) }}
+    </div>

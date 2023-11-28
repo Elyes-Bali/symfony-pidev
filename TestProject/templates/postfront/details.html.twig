@@ -1,0 +1,96 @@
+{% extends 'classe/front.html.twig' %}
+
+{% block body %}
+
+    <div class="content-area home-area-1 recent-property" style="background-color: #FCFCFC; padding-bottom: 55px;">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="section-title text-center mb-3">Post Details</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="media-1">
+                        <img src="{{ asset('uploads/' ~ post.image) }}" alt="Post Image" class="img-fluid">
+                        <span class="d-flex align-items-center loc mb-2">
+                            <span class="icon-room mr-3"></span>
+                            <span>{{ post.sujet }}</span>
+                        </span>
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h3>{{ post.titre }}</h3>
+                                <div class="price ml-auto">
+                                    <span>{{ post.date ? post.date|date('Y-m-d') : '' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <p>Any additional details or description of the post can go here.</p>
+                </div>
+            </div>
+
+            {% if post.commentaires is not null %}
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h4>Comments:</h4>
+                        <ul>
+                            {% for commentaire in post.commentaires %}
+                                <li>
+                                    <div class="comment-info">
+                                        <img src="{{ asset('img/profile.jpg') }}" alt="Profile Icon" class="img-fluid rounded-circle" style="width: 40px; height: 40px;">
+                                        <span class="comment-details">
+                                            <strong>{{ commentaire.nom }}</strong> - {{ commentaire.datenow }}
+                                        </span>
+                                        <form method="post" action="{{ path('app_commentaire_delete', {'idComent': commentaire.idComent}) }}" style="display: inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.idComent) }}">
+                                            <button type="submit" class="btn btn-link btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                    <p>{{ commentaire.contenu }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Comment Form #}
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>Add a Comment:</h4>
+                    {{ form_start(commentForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                    <div class="form-group">
+                        {{ form_label(commentForm.contenu, 'Comment', {'label_attr': {'class': 'form-group'}}) }}
+                        {{ form_widget(commentForm.contenu, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(commentForm.contenu, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(commentForm.nom, 'Name', {'label_attr': {'class': 'form-group'}}) }}
+                        {{ form_widget(commentForm.nom, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(commentForm.nom, {'attr': {'class': 'text-danger'}}) }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+
+                    {{ form_end(commentForm) }}
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <a href="{{ path('app_post_index') }}" class="btn btn-primary">Go back To Posts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
