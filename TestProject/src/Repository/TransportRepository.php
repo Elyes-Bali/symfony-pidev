@@ -10,11 +10,87 @@ class TransportRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Transport::class);
     }
+    
+    public function findByTypeAndDateDepart($searchType, $searchDateDepart)
+    {
+        $queryBuilder = $this->createQueryBuilder('t');
+
+        if ($searchType) {
+            $queryBuilder
+                ->andWhere('t.type LIKE :searchType')
+                ->setParameter('searchType', '%' . $searchType . '%');
+        }
+
+        if ($searchDateDepart) {
+            $queryBuilder
+                ->andWhere('t.dd = :searchDateDepart')
+                ->setParameter('searchDateDepart', new \DateTime($searchDateDepart));
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function countAll()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countByPriceUnder300()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.prix < :price')
+            ->setParameter('price', 300)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countByPriceAbove300()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.prix >= :price')
+            ->setParameter('price', 300)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+
+    public function orderByType()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.type', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+    public function orderByPrix()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.prix', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+    public function orderByCapacite()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.cap', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+    public function orderByDD()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.dd', 'ASC')
+            ->getQuery()->getResult();
+    }
+
+
 
     /**
-     * Récupère tous les transports triés par ID ascendant.
-     *
-     * @return Transport[] Returns an array of Transport objects
+     * @return Transport[] 
      */
     public function findAllTransports()
     {
@@ -25,8 +101,6 @@ class TransportRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère un transport par son ID.
-     *
      * @param int $id
      * @return Transport|null
      */
@@ -40,8 +114,6 @@ class TransportRepository extends ServiceEntityRepository
     }
 
     /**
-     * Supprime un transport par son ID.
-     *
      * @param int $id
      */
     public function deleteTransportById($id)
@@ -54,6 +126,4 @@ class TransportRepository extends ServiceEntityRepository
             $entityManager->flush();
         }
     }
-
-    // Vous pouvez ajouter d'autres méthodes personnalisées en fonction de vos besoins.
 }

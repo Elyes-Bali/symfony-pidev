@@ -2,59 +2,52 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TransportRepository;
+use Doctrine\DBAL\Types\Types;
+use DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Table(name="transport")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: TransportRepository::class)]
 class Transport
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="cap", type="integer", nullable=false)
-     */
-    private $cap;
+    #[Assert\Positive(message:"La capacite doit etre positive.")]
+    #[Assert\NotBlank(message:"Entrez la capacite.")]
+    #[ORM\Column]
+    private ?int $cap = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255, nullable=false)
-     */
-    private $type;
+    #[Assert\Choice(choices: ['train', 'voiture', 'avion', 'bateau', 'metro'], message: 'Type invalide. Veuillez choisir parmi train, voiture, avion, bateau ou metro.')]
+    #[Assert\NotBlank(message:"Entrez le type.")]
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dd", type="date", nullable=false)
-     */
-    private $dd;
+    #[Assert\NotBlank(message:"Entrez la date de depart.")]
+    #[ORM\Column()]
+    private ?\DateTime $dd = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="da", type="date", nullable=false)
-     */
-    private $da;
+    #[Assert\NotBlank(message:"Entrez la date d arrivee.")]
+    #[ORM\Column()]
+    private ?\DateTime $da = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="prix", type="integer", nullable=false)
-     */
-    private $prix;
+    #[Assert\Positive(message:"Le prix doit etre positif.")]
+    #[Assert\NotBlank(message:"Entrez le prix.")]
+    #[ORM\Column]
+    private ?int $prix = null;
 
-    // Getter and Setter methods...
+    #[ORM\OneToMany(mappedBy: 'transport', targetEntity: Reservation::class, cascade:["persist","remove"])]
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,7 +59,7 @@ class Transport
         return $this->cap;
     }
 
-    public function setCap(int $cap): self
+    public function setCap(int $cap): static
     {
         $this->cap = $cap;
 
@@ -78,31 +71,31 @@ class Transport
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(string $type): static
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getDd(): ?\DateTimeInterface
+    public function getDd(): ?\DateTime
     {
         return $this->dd;
     }
 
-    public function setDd(\DateTimeInterface $dd): self
+    public function setDd(\DateTime $dd): static
     {
         $this->dd = $dd;
 
         return $this;
     }
 
-    public function getDa(): ?\DateTimeInterface
+    public function getDa(): ?\DateTime
     {
         return $this->da;
     }
 
-    public function setDa(\DateTimeInterface $da): self
+    public function setDa(\DateTime $da): static
     {
         $this->da = $da;
 
@@ -114,11 +107,46 @@ class Transport
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(int $prix): static
     {
         $this->prix = $prix;
 
         return $this;
     }
-}
 
+    public function __toString():string{
+        return $this->id;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setTransports($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getTransports() === $this) {
+                $reservation->setTransports(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+}

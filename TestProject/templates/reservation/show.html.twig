@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <h1>Reservation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Date de Reservartion</th>
+                <td>{{ reservation.debutreservartion ? reservation.debutreservartion|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Moyen de Transport</th>
+                <td>{{ reservation.transport.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+   
+    <a href="{{ path('generate_pdf', {'id': reservation.id}) }}" class="btn btn-danger">Generate PDF</a>
+
+   
+    <a href="{{ path('app_reservation_index') }}" class="btn btn-secondary">Back to list</a>
+
+   
+    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}" class="btn btn-primary">Edit</a>
+{% endblock %}

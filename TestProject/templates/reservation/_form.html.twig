@@ -1,0 +1,38 @@
+
+
+
+{{ form_start(form, {'attr':{'novalidate':'novalidate'}},{'attr': {'class': 'form-horizontal'}}) }}
+        <div class="form-group">
+            {{ form_label(form.clientId, 'Client', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.clientId, {'attr': {'class': 'form-control'}}) }}
+                {% if form_errors(form.clientId) is not empty %}
+                    <small class="form-text text-muted">{{ form_errors(form.clientId) }}</small>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.debutreservartion, 'Date Reservation', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.debutreservartion, {'attr': {'class': 'form-control'}}) }}
+                {% if form_errors(form.debutreservartion) is not empty %}
+                    <small class="form-text text-muted">{{ form_errors(form.debutreservartion) }}</small>
+                {% endif %}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.transport, 'Transport', {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+            <div class="col-sm-10">
+                {{ form_widget(form.transport, {'attr': {'class': 'form-control'}}) }}
+                {% if form_errors(form.transport) is not empty %}
+                    <small class="form-text text-muted">{{ form_errors(form.transport) }}</small>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+        {{ form_end(form) }}

@@ -2,62 +2,37 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationRepository;
+use Doctrine\DBAL\Types\Types;
+use DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Reservation
- *
- * @ORM\Table(name="reservation", indexes={@ORM\Index(name="transport_id", columns={"transport_id"})})
- * @ORM\Entity
- */
+
+#[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="transport_id", type="integer", nullable=false)
-     */
-    private $transportId;
+    #[Assert\Positive(message:"L ID du Client doit etre positif.")]
+    #[Assert\NotBlank(message:"Entrez le client.")]
+    #[ORM\Column]
+    private ?int $clientId = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="client_id", type="integer", nullable=false)
-     */
-    private $clientId;
+    #[Assert\NotBlank(message:"Entrez la date de reservation.")]
+    #[ORM\Column()]
+    private ?\DateTime $debutreservartion;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="debutReservartion", type="date", nullable=true)
-     */
-    private $debutreservartion;
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Transport $transport = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTransportId(): ?int
-    {
-        return $this->transportId;
-    }
-
-    public function setTransportId(int $transportId): static
-    {
-        $this->transportId = $transportId;
-
-        return $this;
     }
 
     public function getClientId(): ?int
@@ -72,14 +47,26 @@ class Reservation
         return $this;
     }
 
-    public function getDebutreservartion(): ?\DateTimeInterface
+    public function getDebutreservartion(): ?\DateTime
     {
         return $this->debutreservartion;
     }
 
-    public function setDebutreservartion(?\DateTimeInterface $debutreservartion): static
+    public function setDebutreservartion(\DateTime $debutreservartion): static
     {
         $this->debutreservartion = $debutreservartion;
+
+        return $this;
+    }
+
+    public function getTransport(): ?Transport
+    {
+        return $this->transport;
+    }
+
+    public function setTransport(?Transport $transport): static
+    {
+        $this->transport = $transport;
 
         return $this;
     }

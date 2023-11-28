@@ -22,3 +22,17 @@ transports_delete:
     path: /transports/delete/{id}
     controller: App\Controller\TransportController::delete
 
+transports_statistics:
+    path: '/transports/statistics'
+    controller: 'App\Controller\TransportController::statistics'
+
+
+export_excel:
+    path: '/export-excel'
+    controller: 'App\Controller\TransportController::exportExcel'
+
+qr_code_show:
+    path: '/transport/{id}/qr-code'
+    controller: 'App\Controller\TransportController::showQrCode'
+
+

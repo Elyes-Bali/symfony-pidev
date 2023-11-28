@@ -1,38 +1,99 @@
-{# templates/transports/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des Transports{% endblock %}
 
 {% block body %}
-    <h1>Liste des Transports</h1>
+    <h1 class="mb-4">Liste des Transports</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Type</th>
-                <th>Capacité</th>
-                <th>Date de Départ</th>
-                <th>Date d'Arrivée</th>
-                <th>Prix</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for transport in transports %}
+    <br>
+    <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;">
+    <br><br>
+
+    <div align="center" class="table-data__tool-left">
+        <a href="{{ path('app_tri_type') }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-sort-alpha-up"></i>Trier par Type</a>
+        <a href="{{ path('app_tri_capacite') }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-sort-alpha-down"></i>Trier par Capacite</a>
+        <a href="{{ path('app_tri_prix') }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-sort-alpha-down"></i>Trier par Prix</a>
+        <a href="{{ path('app_tri_dd') }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-sort-alpha-down"></i>Trier par Date de Depart</a>
+    </div>
+    <br><br>
+
+    <form action="{{ path('transports_index') }}" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" id="searchType" name="searchType" class="form-control" placeholder="Rechercher par type" value="{{ app.request.query.get('searchType') }}">
+        <input type="datetime-local" id="searchDateDepart" name="searchDateDepart" class="form-control" value="{{ app.request.query.get('searchDateDepart') ? app.request.query.get('searchDateDepart')|date('Y-m-d\TH:i') : '' }}">
+            <button type="submit" class="btn btn-secondary">Rechercher</button>
+        </div>
+    </form>
+
+   <div>
+   <a href="{{ path('export_excel') }}" class="btn btn-success">Exporter vers Excel</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
                 <tr>
-                    <td>{{ transport.type }}</td>
-                    <td>{{ transport.cap }}</td>
-                    <td>{{ transport.dd|date('Y-m-d') }}</td>
-                    <td>{{ transport.da|date('Y-m-d') }}</td>
-                    <td>{{ transport.prix }}</td>
-                    <td>
-                        <a href="{{ path('transports_show', {'id': transport.id}) }}">Voir</a>
-                        <a href="{{ path('transports_edit', {'id': transport.id}) }}">Modifier</a>
-                        <a href="{{ path('transports_delete', {'id': transport.id}) }}">Supprimer</a>
-                    </td>
+                    <th>Type</th>
+                    <th>Capacité</th>
+                    <th>Date de Départ</th>
+                    <th>Date d'Arrivée</th>
+                    <th>Prix</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for transport in transports %}
+                    {% if not app.request.query.has('searchType') or transport.type == app.request.query.get('searchType') %}
+                        <tr>
+                            <td>{{ transport.type }}</td>
+                            <td>{{ transport.cap }}</td>
+                            <td>{{ transport.dd|date('Y-m-d | H:i') }}</td>
+                            <td>{{ transport.da|date('Y-m-d | H:i') }}</td>
+                            <td>{{ transport.prix }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <form action="{{ path('transports_show', {'id': transport.id}) }}" method="get" style="display: inline;">
+                                        <button type="submit" class="btn btn-primary mr-1">Voir</button>
+                                    </form>
+
+                                    <form action="{{ path('transports_edit', {'id': transport.id}) }}" method="get" style="display: inline;">
+                                        <button type="submit" class="btn btn-success mr-1">Modifier</button>
+                                    </form>
+
+                                    <form action="{{ path('transports_delete', {'id': transport.id}) }}" method="post" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce transport ?');">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger mr-1">Supprimer</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
+
+
+
+    
 {% endblock %}

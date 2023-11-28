@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques des Transports{% endblock %}
+
+{% block body %}
+    <h1>Statistiques des Transports</h1>
+
+    <p>Total des Transports : {{ totalTransports }}</p>
+
+    <p>Transports avec un prix sous 300 : {{ transportsUnder300 }} ({{ percentageUnder300 }}%)</p>
+
+    <p>Transports avec un prix égal ou supérieur à 300 : {{ transportsAbove300 }} ({{ percentageAbove300 }}%)</p>
+
+
+ <a href="{{ path('transports_index') }}" class="btn btn-secondary">Back to list</a>
+{% endblock %}
+

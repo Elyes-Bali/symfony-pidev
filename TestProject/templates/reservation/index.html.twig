@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Réservations{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Liste des Réservations</h1>
+    <br>
+    <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;">
+    <br><br>
+
+    <form action="{{ path('app_reservation_index') }}" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" id="searchClientId" name="searchClientId" class="form-control" placeholder="Rechercher par client" value="{{ app.request.query.get('searchClientId') }}">
+            <input type="datetime-local" id="searchDebutreservartion" name="searchDebutreservartion" class="form-control" value="{{ app.request.query.get('searchDebutreservartion') ? app.request.query.get('searchDebutreservartion')|date('Y-m-d\TH:i') : '' }}">
+            <button type="submit" class="btn btn-secondary">Rechercher</button>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Client ID</th>
+                     <th>Moyen de Transport</th>
+                    <th>Date de Réservation</th>
+                    <th>Date de Depart du moyen</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                    {% if not app.request.query.has('searchClientId') or reservation.clientId == app.request.query.get('searchClientId') %}
+                        <tr>
+                            <td>{{ reservation.clientId }}</td>
+                            <td>{{ reservation.transport.type }}</td>
+                            <td>{{ reservation.debutreservartion ? reservation.debutreservartion|date('Y-m-d | H:i') : '' }}</td>
+                            <td>{{ reservation.transport.dd ? reservation.transport.dd|date('Y-m-d | H:i') : '' }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <form action="{{ path('app_reservation_show', {'id': reservation.id}) }}" method="get" style="display: inline;">
+                                        <button type="submit" class="btn btn-primary mr-1">Voir</button>
+                                    </form>
+
+                                    <form action="{{ path('app_reservation_edit', {'id': reservation.id}) }}" method="get" style="display: inline;">
+                                        <button type="submit" class="btn btn-success mr-1">Modifier</button>
+                                    </form>
+
+                                    <form action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" method="post" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?');">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger mr-1">Supprimer</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
+    
+{% endblock %}

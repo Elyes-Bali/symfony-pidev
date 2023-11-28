@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,7 +47,7 @@ class Reservations
      *
      * @ORM\Column(name="validate", type="boolean", nullable=true)
      */
-    private $validate = '0';
+    private $validate;
 
     /**
      * @var \Evenements
@@ -59,71 +58,6 @@ class Reservations
      * })
      */
     private $evenement;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getPlacesReservees(): ?int
-    {
-        return $this->placesReservees;
-    }
-
-    public function setPlacesReservees(?int $placesReservees): static
-    {
-        $this->placesReservees = $placesReservees;
-
-        return $this;
-    }
-
-    public function getParticipantId(): ?int
-    {
-        return $this->participantId;
-    }
-
-    public function setParticipantId(?int $participantId): static
-    {
-        $this->participantId = $participantId;
-
-        return $this;
-    }
-
-    public function getDateheureReservation(): ?\DateTimeInterface
-    {
-        return $this->dateheureReservation;
-    }
-
-    public function setDateheureReservation(?\DateTimeInterface $dateheureReservation): static
-    {
-        $this->dateheureReservation = $dateheureReservation;
-
-        return $this;
-    }
-
-    public function isValidate(): ?bool
-    {
-        return $this->validate;
-    }
-
-    public function setValidate(?bool $validate): static
-    {
-        $this->validate = $validate;
-
-        return $this;
-    }
-
-    public function getEvenement(): ?Evenements
-    {
-        return $this->evenement;
-    }
-
-    public function setEvenement(?Evenements $evenement): static
-    {
-        $this->evenement = $evenement;
-
-        return $this;
-    }
 
 
 }

@@ -46,7 +46,7 @@ class ClasseController extends AbstractController
     #[Route('/home', name:'home')]
     public function Home(): Response
     {
-        return $this->render('/classe/home.html.twig');
+        return $this->render('/classe/front.html.twig');
     }
 
     #[Route('/dashboard', name:'dash')]

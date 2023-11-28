@@ -1,0 +1,26 @@
+{% extends 'baseFront.html.twig' %}
+
+{% block title %}New Reservation{% endblock %}
+
+{% block body %}
+    <div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
+                    <h2>Create new Reservation</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row testimonial">
+                    <div class="col-md-12">
+                        <div class="item">
+                            {{ include('reservation/_form.html.twig') }}
+                            
+                            <a href="{{ path('stripe') }}" class="btn btn-primary">Payer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

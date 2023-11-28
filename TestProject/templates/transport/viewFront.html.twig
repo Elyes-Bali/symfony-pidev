@@ -1,0 +1,22 @@
+{% include 'classe/serve.html.twig' %}
+
+{% block title %}Sélection de Transport{% endblock %}
+                        
+{% block body %}
+    {% for transport in transports %}
+        <div class="item">
+            <div class="client-text">                                
+                <p>Type: {{ transport.type }}</p>
+                {% set imageFileName = transport.type|lower ~ '.png' %}
+                <img src="{{ asset('img/' ~ imageFileName) }}">
+
+                <h4><strong>Capacite: {{ transport.cap }}, </strong><i>Prix: {{ transport.prix }} DT</i></h4>
+                <h5>Departure Date : {{ transport.dd|date('Y-m-d H:i') }}</h5>
+                <h5>Arrival Date : {{ transport.da|date('Y-m-d  H:i') }}</h5>
+                <form action="{{ path('app_reservation_newClient', {'id': transport.id}) }}" method="get" style="display: inline;">
+                    <button type="submit">Reserver</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
