@@ -1,0 +1,20 @@
+<div class="card-body card-block">
+        {{ form_start(form,{'attr':{'novalidate':'novalidate'}},{'attr':{'class':'form-horizontal'}}) }}
+            <div class="row form-group">
+                <div class="col col-md-3">
+                    {{ form_label(form.contenu,"Contenu :") }}
+                </div>
+                <div class="col-12 col-md-9">
+                    {{ form_widget(form.contenu,{'attr':{'class':'form-control'}})}}
+                    {% if form_errors(form.contenu) is not empty %}
+                        <small class="form-text text-muted">{{ form_errors(form.contenu) }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div align="center" class="card-footer">
+                <button class="btn"><i class="zmdi zmdi-plus"></i>{{ button_label|default('Ajouter') }}</button>
+                <button class="btn"><a style="color:black;" href="{{ path('app_categorie_heb_index') }}">Consulter Liste</a></button>
+            </div>
+        {{ form_end(form) }}
+    </div>

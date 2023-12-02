@@ -90,11 +90,21 @@
                         <a class="collapse-item" href="/reservation">Afficher Reservations</a>
                     </div>
                 </div>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>hebergements</span>
+                    </a>
+                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                         <a class="collapse-item" href="/hebergement/new">Ajouter Hebergement</a>
+                        <a class="collapse-item" href="/hebergement">Afficher Hebergements</a>
+                        <a class="collapse-item" href="/categorie/heb/new">Ajouter Categorie</a>
+                        <a class="collapse-item" href="/categorie/heb/">Afficher Categories</a>
+                    </div>
+                </div>
             </li>
-
-            
-
-            
 
             
 
@@ -416,7 +426,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.body.removeChild(a);
             }
         };
-
         xhr.send();
     });
 });

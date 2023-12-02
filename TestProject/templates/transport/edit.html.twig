@@ -7,10 +7,6 @@
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    {% if not form.captcha.isRendered %}
-        {{ form_row(form.captcha) }}
-    {% endif %}
-
     <button type="submit">Update</button>
     {{ form_end(form) }}
 

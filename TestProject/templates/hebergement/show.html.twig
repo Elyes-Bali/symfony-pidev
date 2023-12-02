@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hebergement{% endblock %}
+
+{% block body %}
+    <h4><b>Hebergement</b></h4>
+    <br>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Capacite</th>
+                <td>{{ hebergement.capacite }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ hebergement.prix }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ hebergement.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ hebergement.type }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ hebergement.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <div align="center" class="card-footer">
+        <button class="btn"><a style="color:black; href="{{ path('app_categorie_heb_edit', {'id': hebergement.id}) }}">Modifier</a></button>
+        <button class="btn"><a style="color:black;" href="{{ path('app_hebergement_index') }}">Consulter Liste</a></button>
+        {{ include('hebergement/_delete_form.html.twig') }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie Hebergement{% endblock %}
+
+{% block body %}
+    <h4><b>Liste des Categories</b></h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Contenu</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie_heb in categorie_hebs %}
+            <tr>
+                <td>{{ categorie_heb.contenu }}</td>
+                <td>
+                    <button class="btn"><a style="color:#000;" href="{{ path('app_categorie_heb_show', {'id': categorie_heb.id}) }}">Afficher</a></button>
+                    <button class="btn"><a style="color:#000;" href="{{ path('app_categorie_heb_edit', {'id': categorie_heb.id}) }}">Modifier</a></button>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Pas de categorie.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <button class="btn"><a style="color:#000;" href="{{ path('app_categorie_heb_new') }}">Ajouter une Categorie</a></button>
+{% endblock %}

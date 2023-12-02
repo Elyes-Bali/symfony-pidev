@@ -1,0 +1,24 @@
+{% include 'front.html.twig' %}
+
+{% block title %}Sélection de Hebergement{% endblock %}
+                        
+{% block body %}
+
+        {% for heb in hebergements %}
+        <div class="client-text">                                
+            <p>Type: {{ heb.type }}</p>
+            <p>Adresse: {{ heb.adresse }}</p>
+            <h4><strong>Capacite: {{ heb.capacite }}, </strong><i>Prix: {{ heb.prix }} DT</i></h4>
+        </div>
+        {% endfor %}
+        <div class="pagination" style="margin-left:450px;">
+            {% do hebergements.setPageRange(3) %}
+            {{knp_pagination_render(hebergements, 'pagination.html.twig')}}
+            <br><br><br><br><br>
+        </div>
+        
+                
+            
+
+    
+{% endblock %}

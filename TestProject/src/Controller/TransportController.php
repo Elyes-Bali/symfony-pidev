@@ -77,9 +77,6 @@ class TransportController extends AbstractController
     {
         $transport = $transportRepository->find($id);
         $form = $this->createForm(TransportType::class, $transport);
-        $form->add('captcha', CaptchaType::class, [
-            'label' => 'Captcha',
-        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -123,7 +120,7 @@ class TransportController extends AbstractController
         }
 
         $result = $this->customQrCodeBuilder
-            ->data(json_encode($data)) // Encode transport data into the QR code
+            ->data(json_encode($data)) 
             ->size(400)
             ->margin(20)
             ->build();
