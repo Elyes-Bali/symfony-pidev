@@ -4,61 +4,46 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationsRespository;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Reservations
- *
- * @ORM\Table(name="reservations", indexes={@ORM\Index(name="fk_evenement_reservation", columns={"evenement_id"}), @ORM\Index(name="fk_participant_reservation", columns={"participant_id"})})
- * @ORM\Entity
- */
+
+  #[ORM\Entity(repositoryClass: ReservationsRespository::class)]
+ 
 class Reservations
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    
+      
+      #[ORM\Id]
+      #[ORM\GeneratedValue]
+      #[ORM\Column]
+    private ?int  $id = null;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="places_reservees", type="integer", nullable=true)
-     */
-    private $placesReservees;
+  
+     
+     #[ORM\Column]
+     #[Assert\NotBlank(message: 'aucune place reservé')]
+    private ?int $placesReservees =null;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="participant_id", type="integer", nullable=true)
-     */
-    private $participantId;
+  
+     #[ORM\Column]
+     #[Assert\NotBlank(message: 'ajouter id')]
+     private ?int $participantId =null;
+ 
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="dateheure_reservation", type="datetime", nullable=true)
-     */
-    private $dateheureReservation;
+     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+     #[Assert\NotBlank(message: 'ajouter une  date')]
+     private ?\DateTime $dateheureReservation;
+     
+    
+      #[ORM\Column]
+      #[Assert\NotBlank(message: 'validation ?')]
+    private  ?bool $validate = null;
 
-    /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="validate", type="boolean", nullable=true)
-     */
-    private $validate = '0';
+    #[ORM\ManyToOne(targetEntity: Evenements::class)]
+#[ORM\JoinColumn(name: "evenement_id", referencedColumnName: "id")]
+private ?Evenements $evenement = null;
 
-    /**
-     * @var \Evenements
-     *
-     * @ORM\ManyToOne(targetEntity="Evenements")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="evenement_id", referencedColumnName="id")
-     * })
-     */
-    private $evenement;
 
     public function getId(): ?int
     {
@@ -89,17 +74,18 @@ class Reservations
         return $this;
     }
 
-    public function getDateheureReservation(): ?\DateTimeInterface
+    public function getDateheureReservation(): ?\DateTime
     {
         return $this->dateheureReservation;
     }
-
-    public function setDateheureReservation(?\DateTimeInterface $dateheureReservation): static
+    
+    public function setDateheureReservation(?\DateTime $dateheureReservation): static
     {
         $this->dateheureReservation = $dateheureReservation;
-
+    
         return $this;
     }
+    
 
     public function isValidate(): ?bool
     {
@@ -125,5 +111,10 @@ class Reservations
         return $this;
     }
 
-
+    public function __toString(): string
+    {
+        return sprintf('Reservation #%d', $this->id);
+    }
+    
 }
+

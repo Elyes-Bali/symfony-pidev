@@ -1,0 +1,57 @@
+<!-- templates/pdf/evenements_pdf.html.twig -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ evenement.nom }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        strong {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ evenement.nom }}</h1>
+    
+    <ul>
+        <li><strong>ID:</strong> {{ evenement.id }}</li>
+        <li><strong>Nom:</strong> {{ evenement.nom }}</li>
+        <li><strong>Date de début:</strong> {{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</li>
+        <li><strong>Description:</strong> {{ evenement.description }}</li>
+        <li><strong>Lieu:</strong> {{ evenement.lieu }}</li>
+        {# <li><strong>Image:</strong> {{ evenement.image }}</li> #}
+        <li><strong>Tarif:</strong> {{ evenement.tarif }}</li>
+        <li><strong>Places Disponibles:</strong> {{ evenement.placesDisponibles }}</li>
+        <li><strong>Catégorie:</strong> {{ evenement.categorie ? evenement.categorie.nom : 'pas précisé' }}</li>
+        <!-- Add more attributes as needed -->
+        <li><strong>QR:</strong> <img src="{{ asset('images/mi.png') }}" alt="Qr code de l'événement"></li>
+
+    </ul>
+</body>
+</html>

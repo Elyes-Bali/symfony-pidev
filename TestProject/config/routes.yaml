@@ -1,3 +1,25 @@
 index:
    path: /
-   controller: App\Controller\ClasseController::Home
+   controller: App\Controller\ClasseController::Front
+   # config/routes.yaml
+#app_pdf:
+ #   path: /pdf
+    #controller: App\Controller\PdfController::generatePdf
+    # config/routes.yaml
+generate_pdf:
+    path: '/generate-pdf/{id}'
+    controller: 'App\Controller\PdfController::generatePdf'
+    methods: ['GET']
+# config/routes.yaml
+app_evenements_stat:
+    path: '/evenements/stat/{id}'
+    controller: 'App\Controller\EvenementsController::chart'
+    methods: ['GET']
+
+
+
+
+
+
+
+

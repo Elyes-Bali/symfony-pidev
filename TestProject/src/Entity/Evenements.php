@@ -1,85 +1,63 @@
 <?php
 
 namespace App\Entity;
-
+use App\Repository\EvenementsRespository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
 
-/**
- * Evenements
- *
- * @ORM\Table(name="evenements", indexes={@ORM\Index(name="fk_categorie", columns={"categorie_id"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: EvenementsRespository::class)]
 class Evenements
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     */
-    private $nom;
+    #[ORM\Column]
+    #[Assert\NotBlank(message:"Veuillez entrer le nom")]
+    private ?string $nom = null ;
+// /**
+//      * @ORM\Column(type="datetime", nullable=true)
+//      * @Assert\DateTime(message="Invalid date format.")
+//      */
+#[ORM\Column(type: Types::DATE_MUTABLE)]    
+private ?\DateTimeInterface $datedebut = null;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="dateDebut", type="date", nullable=true)
-     */
-    private $datedebut;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
-     */
-    private $description;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="lieu", type="string", length=255, nullable=true)
-     */
-    private $lieu;
+    #[Assert\NotBlank(message:"Veuillez entrer la description")]
+    #[ORM\Column(length:250)]
+    private ?string $description = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
-     */
-    private $image;
+    #[ORM\Column(length:255)]
+    #[Assert\NotBlank(message:"Veuillez entrer le lieu")]
+     private ?string $lieu  = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="tarif", type="decimal", precision=10, scale=2, nullable=true)
-     */
-    private $tarif;
+     #[ORM\Column(length:255)]
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="places_disponibles", type="integer", nullable=true)
-     */
-    private $placesDisponibles;
+     private ?string $image  = null;
 
-    /**
-     * @var \Categories
-     *
-     * @ORM\ManyToOne(targetEntity="Categories")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="categorie_id", referencedColumnName="id")
-     * })
-     */
-    private $categorie;
+     #[Assert\NotBlank(message:"Veuillez saisir le prix.")]
+     #[Assert\Positive(message:"Veuillez saisir une valeur positive.")]
+     #[ORM\Column(length:255)]
+     
+     private ?string $tarif  = null;
+
+
+     #[Assert\NotBlank(message:"Veuillez saisir le nombre des places disponibles")]
+     #[Assert\Positive(message:"Veuillez saisir une valeur positive.")]
+     #[ORM\Column]
+    private ?int $placesDisponibles = null;
+
+    #[ORM\ManyToOne(targetEntity: Categories::class)]
+    #[ORM\JoinColumn(name: "categorie_id", referencedColumnName: "id")]
+    private ?Categories $categorie = null;
+
+    
+
+    
 
     public function getId(): ?int
     {
@@ -98,17 +76,19 @@ class Evenements
         return $this;
     }
 
-    public function getDatedebut(): ?\DateTimeInterface
-    {
-        return $this->datedebut;
+  public function getDatedebut(): ?\DateTimeInterface
+  {
+      return $this->datedebut;
     }
-
-    public function setDatedebut(?\DateTimeInterface $datedebut): static
+    
+  public function setDatedebut(?\DateTime $datedebut): static
     {
         $this->datedebut = $datedebut;
-
+    
         return $this;
     }
+    
+
 
     public function getDescription(): ?string
     {
@@ -181,6 +161,10 @@ class Evenements
 
         return $this;
     }
-
+   
+   public function __toString(): string
+{
+    return (string) $this->id;
+}
 
 }

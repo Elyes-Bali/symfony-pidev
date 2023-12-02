@@ -1,0 +1,84 @@
+
+<div class="card-body card-block">
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}, {'attr': {'class': 'form-horizontal'}}) }}
+    
+    <div class="row form-group">
+        <div class="col col-md-3">
+            {{ form_label(form.participantId, "Participant ID:") }}
+        </div>
+        <div class="col-12 col-md-9">
+            {{ form_widget(form.participantId, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.participantId) is not empty %}
+                <small class="form-text text-muted">{{ form_errors(form.participantId) }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col col-md-3">
+            {{ form_label(form.placesReservees, "Places Réservées:") }}
+        </div>
+        <div class="col-12 col-md-9">
+            {{ form_widget(form.placesReservees, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.placesReservees) is not empty %}
+                <small class="form-text text-muted">{{ form_errors(form.placesReservees) }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+<div class="row form-group">
+    <div class="col col-md-3">
+        {{ form_label(form.dateheureReservation, "Date de Réservation:") }}
+    </div>
+    <div class="col-12 col-md-9">
+        {{ form_widget(form.dateheureReservation, {'attr': {'class': 'form-control'}, 'widget': 'single_text', 'html5': false}) }}
+        {# Check if dateheureReservation has a value before applying the date filter #}
+        {% if form.dateheureReservation.vars.value is not null %}
+            <small class="form-text text-muted">
+                {{ form.dateheureReservation.vars.value|date('Y-m-d H:i') }}
+            </small>
+        {% endif %}
+    </div>
+</div>
+
+
+    <div class="row form-group">
+        <div class="col col-md-3">
+            {{ form_label(form.evenement, "Événement associé:") }}
+        </div>
+        <div class="col-12 col-md-9">
+            {{ form_widget(form.evenement, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.evenement) is not empty %}
+                <small class="form-text text-muted">{{ form_errors(form.evenement) }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col col-md-3">
+            {{ form_label(form.validate, "Validation:") }}
+        </div>
+        <div class="col-12 col-md-9">
+            {{ form_widget(form.validate, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.validate) is not empty %}
+                <small class="form-text text-muted">{{ form_errors(form.validate) }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+ <!-- Add other form fields as needed -->
+
+<div align="center" class="card-footer">
+    <button class="btn btn-primary"><i class="zmdi zmdi-plus"></i>{{ button_label|default('Ajouter') }}</button>
+    <a class="btn btn-primary" style="color: white;" href="{{ path('app_res_contreoller_index') }}">Consulter Liste</a>
+</div>
+
+
+    {{ form_end(form) }}
+</div>
+
+
+
+
+
+

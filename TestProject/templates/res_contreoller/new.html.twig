@@ -1,0 +1,21 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <h4><b>Ajouter une Reservation</b></h4>
+   <div class="container mt-4">
+        <div class="card" >
+            <img class="card-img-top" src="{{ asset('images/bbb.png') }}" alt="Card image cap" style="max-width: 100%;">
+            <div class="card-body">
+          
+                {{ include('res_contreoller/_form.html.twig') }}
+              {#   <button class="btn btn-primary"><i class="zmdi zmdi-plus"></i>{{ button_label|default('Ajouter') }}</button>
+                <a href="{{ path('app_res_contreoller_index') }}" class="btn btn-primary my-3">Back to List</a> #}
+            
+            </div>
+        </div>
+    </div>
+{% endblock %}
