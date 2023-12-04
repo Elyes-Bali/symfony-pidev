@@ -36,12 +36,14 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-            </a>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center style="width: 250px;" href="">
+    <div class="sidebar-brand-icon rotate-n-15">
+        <img src="{{ asset('images/hello.png') }}" alt="Airplane" style="width: 65px; height: 45px;">
+    </div>
+    <div class="sidebar-brand-text mx-3">
+        BEST TRIP <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+    </div>
+</a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -56,56 +58,98 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Gestion Transport
-            </div>
+         <!-- Heading -->
+<div class="sidebar-heading">
+    Gestion Transport
+</div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+<!-- Transports Section -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransports"
+        aria-expanded="true" aria-controls="collapseTransports">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Transports</span>
+    </a>
+    <div id="collapseTransports" class="collapse" aria-labelledby="headingTransports" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Transports:</h6>
+            <a class="collapse-item" href="/transports/add">Ajouter Transport</a>
+            <a class="collapse-item" href="/transports">Afficher Transports</a>
+            <a class="collapse-item" href="/transports/statistics">Statistique par prix</a>
+            <a class="collapse-item" href="/transports/stat/Capacite">Statistique par capacite</a>
+            <a class="collapse-item" href="/transportsFront">Afficher Transports Front</a>
+        </div>
+    </div>
+</li>
+
+<!-- Réservations Section -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReservations"
+        aria-expanded="true" aria-controls="collapseReservations">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Réservations</span>
+    </a>
+    <div id="collapseReservations" class="collapse" aria-labelledby="headingReservations" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Réservations:</h6>
+            <a class="collapse-item" href="/reservation/new">Ajouter Reservation</a>
+            <a class="collapse-item" href="/reservation">Afficher Reservations</a>
+        </div>
+    </div>
+</li>
+
+<!-- Hébergements Section -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseHebergements"
+        aria-expanded="true" aria-controls="collapseHebergements">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Hébergements</span>
+    </a>
+    <div id="collapseHebergements" class="collapse" aria-labelledby="headingHebergements" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Hébergements:</h6>
+            <a class="collapse-item" href="/hebergement/new">Ajouter Hebergement</a>
+            <a class="collapse-item" href="/hebergement">Afficher Hebergements</a>
+            <a class="collapse-item" href="/categorie/heb/new">Ajouter Catégorie</a>
+            <a class="collapse-item" href="/categorie/heb/">Afficher Catégories</a>
+        </div>
+    </div>
+</li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Transports</span>
+                   <i class="fas fa-fw fa-calendar"></i>
+
+                    <span>Events</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="/transports/add">Ajouter Transport</a>
-                        <a class="collapse-item" href="/transports">Afficher Transports</a>
-                        <a class="collapse-item" href="/transports/statistics">Statistique par prix</a>
-                        <a class="collapse-item" href="/transports/stat/Capacite">Statistique par capacite</a>
-                        <a class="collapse-item" href="/transportsFront">Afficher Transports Front</a>
+                        <h6 class="collapse-header">Gestion Evenements:</h6>
+                        <a class="collapse-item" href="/evenements/new">Ajouter Evenement</a>
+                        <a class="collapse-item" href="/evenements">Afficher Evenement</a>
+                        <a class="collapse-item" href="/res/contreoller/new">Ajouter Reservation</a>
+                        <a class="collapse-item" href="/res/contreoller/">Afficher Reservation</a>
+                         <a class="collapse-item" href="/categories/new">Ajouter Catégorie</a>
+                        <a class="collapse-item" href="/categories">Afficher Catégorie</a>
                     </div>
                 </div>
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Réservations</span>
-                </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="/reservation/new">Ajouter Reservation</a>
-                        <a class="collapse-item" href="/reservation">Afficher Reservations</a>
-                    </div>
-                </div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>hebergements</span>
-                    </a>
-                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                         <a class="collapse-item" href="/hebergement/new">Ajouter Hebergement</a>
-                        <a class="collapse-item" href="/hebergement">Afficher Hebergements</a>
-                        <a class="collapse-item" href="/categorie/heb/new">Ajouter Categorie</a>
-                        <a class="collapse-item" href="/categorie/heb/">Afficher Categories</a>
-                    </div>
-                </div>
-            </li>
-
+            </li> 
+          <!-- Nav Item - Statistics -->
+<!-- Nav Item - Statistics -->
+<li class="nav-item">
+    <a class="nav-link" href="/chart/">
+        <i class="fas fa-fw fa-chart-bar"></i>
+        <span>Statistics</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('app_evenements_stat', {'id': 82}) }}">
+        <i class="fas fa-fw fa-chart-pie"></i>
+        <span>Pie Chart</span>
+    </a>
+</li>
             
 
         </ul>

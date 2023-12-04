@@ -1,0 +1,85 @@
+{% include 'classe/serve.html.twig' %}
+<link rel="stylesheet" href="{{ asset('temp/css/client.css') }}">
+<div class="client">
+<a class="btn btn-secondary mb-4" href="{{ path('client') }}">back to list</a>
+<div class="d-flex">
+
+  <section class="col-md-6 ml-5">
+    {% if unsplashPhotoData %}
+    <div id="photo-slider" class="carousel slide " data-ride="carousel" style="max-width: 600px; margin: auto;">
+        <div class="carousel-inner">
+            {% for photo in unsplashPhotoData %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{ photo.urls.regular }}" class="d-block w-100" style="max-width: 600px; height: 400px; object-fit: cover;" alt="Unsplash Photo">
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#photo-slider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#photo-slider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+{% else %}
+    <p>No Unsplash photos available for this destination.</p>
+{% endif %}
+
+  </section>
+
+  <section class="col-md-6 desc ">
+    <div className="container my-5 py-5">
+      <div className="row">
+        <div className="col-md-12">
+          <h3 className="fs-5"> Destination: {{ circuit.pays }}</h3>
+          <h1 className="display-6">
+            Plus de <b>Detail :</b> 
+          </h1>
+          <hr />
+          <p className="lead mb-4"> <b>Point de départ :</b>
+            {{ circuit.depart }}
+          </p>
+          <p className="lead mb-4"> <b>Point d'arrive :</b>
+            {{ circuit.arrive }}
+          </p>
+          <p className="lead mb-4"><b>le Prix : </b>
+            {{ circuit.Prix }}
+          </p>
+          <p className="lead mb-4"><b>Durée de Vol</b>
+            {{ circuit.temps }}
+          </p>
+          <p className="lead mb-4"><b>Plus Informations :</b>
+            {{ circuit.description }}
+          </p>
+          
+
+
+  
+        {% if weatherData %}
+    <h2>Informations météorologiques pour:</br> {{ circuit.arrive }} </h2>
+    <p><b>Temperature:</b> {{ weatherData.main.temp - 273.15 }}°C</p>
+    <p><b>Météo:</b> {{ weatherData.weather[0].description }}</p>
+    <!-- Display other relevant weather information -->
+{% else %}
+    <p>No weather data available.</p>
+{% endif %}
+
+
+
+
+          <a
+            href=""
+            class="btn btn-info rounded-pill px-4 py-2"
+          >
+            Abonnée
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+

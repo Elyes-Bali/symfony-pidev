@@ -1,0 +1,29 @@
+{% include 'front.html.twig' %}
+
+
+
+{% block title %}Sélection d'événement{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row">
+            {% for evenement in evenements %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ evenement.nom }}</h5>
+                            <p class="card-text"><strong>Description:</strong> {{ evenement.description }}</p>
+                            <p class="card-text"><strong>Tarif:</strong> {{ evenement.tarif }} DT</p>
+                        </div>
+                        <div class="card-footer">
+                            <form action="{{ path('app_reservation_Front', {'id': evenement.id}) }}" method="get">
+                                <button type="submit" class="btn btn-primary">Réserver</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

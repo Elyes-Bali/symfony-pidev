@@ -35,6 +35,23 @@ qr_code_show:
     path: '/transport/{id}/qr-code'
     controller: 'App\Controller\TransportController::showQrCode'
 
+generate_pdf:
+    path: '/generate-pdf/{id}'
+    controller: 'App\Controller\PdfController::generatePdf'
+    methods: ['GET']
+# config/routes.yaml
+app_evenements_stat:
+    path: '/evenements/stat/{id}'
+    controller: 'App\Controller\EvenementsController::chart'
+    methods: ['GET']
+
+app_evenements_index_front:
+    path: '/evenementsFront'
+    controller: 'App\Controller\EvenementsController::indexFront'
+    methods: ['GET']
+app_reservation_Front:
+    path: '/newRes/{id}'
+    controller: 'App\Controller\ResContreollerController::newRes'
 
 
 

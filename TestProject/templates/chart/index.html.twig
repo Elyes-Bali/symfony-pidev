@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h4>Statistiques d'événements selon la catégorie</h4>
+        </div>
+        <div class="card-body">
+            <canvas id="eventChart" width="800" height="400"></canvas>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    var ctx = document.getElementById('eventChart').getContext('2d');
+
+                    var data = {
+                        labels: [{% for stat in eventStatistics %}"{{ stat.category }}",{% endfor %}],
+                        datasets: [{
+                            label: 'Nombre d\'événements',
+                            data: [{% for stat in eventStatistics %}{{ stat.eventCount }},{% endfor %}],
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    };
+
+                    var options = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    };
+
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: data,
+                        options: options
+                    });
+                });
+            </script>
+        </div>
+    </div>
+{% endblock %}
