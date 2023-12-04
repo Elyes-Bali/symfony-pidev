@@ -209,6 +209,7 @@ public function searching(Request $request, CircuitRepository $circuitRepository
 public function sortedCircuits(CircuitRepository $circuitRepository): Response
 {
     $circuits = $circuitRepository->findAllSortedByPriceQueryBuilder();
+   
 
     return $this->render('circuit/clientCircuit.html.twig', [
         'circuits' => $circuits,

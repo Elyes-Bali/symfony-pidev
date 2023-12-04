@@ -65,18 +65,19 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Circuit</span>
-                </a>
+               
+                   
+                    <span> <a class="ml-3 text-white" href="{{ path('app_circuit_new') }}">   <i class="fas fa-fw fa-cog"></i>Ajouter Circuit</a></span></br></br>
+                    <a class="ml-3 text-white" href="{{ path('app_circuit_index') }}"> <i class="fas fa-fw fa-folder"></i>Tous Circuit</a>
+                </br></br>
+              <a class="ml-3 text-white" href="{{ path('app_destination_index') }}"> <i class="fas fa-fw fa-folder"></i>Tous Destinations</a> </br></br>
+                    <a class="ml-3 text-white" href="{{ path('app_destination_new') }}"> <i class="fas fa-fw fa-cog"></i>Ajouter Destination</a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Circuit:</h6>
                         <!-- <a class="collapse-item" href="buttons.html">Buttons</a>
                         <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <a class="collapse-item" href="{{ path('app_circuit_new') }}">>Ajouter Circuit</a>
-                        <a class="collapse-item" href="{{ path('app_circuit_index') }}">>Tous Circuit</a>
+                    
                     </div>
                 </div>
             </li>
@@ -191,18 +192,16 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <form action="{{ path('search_circuits') }}" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <div class="input-group">
+        <input type="text" name="query" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm"></i>
+            </button>
+        </div>
+    </div>
+</form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">

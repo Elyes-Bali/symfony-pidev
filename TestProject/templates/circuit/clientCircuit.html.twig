@@ -78,7 +78,7 @@
         <a href="index.html" class="logo m-0">Best-Trip <span class="text-primary">.</span></a>
 
         <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="{{path('fr')}}">Home</a></li>
           <li class="has-children">
             <a href="#">Dropdown</a>
             <ul class="dropdown">
@@ -134,12 +134,12 @@
     </div>
 </form>
 
-<div id="sort-container">
-    <p>Sort by:</p>
+<div class="mt-2" id="sort-container">
+    <p>Trier par prix:</p>
      <select id="sort" name="sort" onchange="location = this.value;">
         <option value="">--</option>
-        <option value="{{ path('client', {'sort': 'name_asc'}) }}" {% if app.request.query.get('sort') == 'name_asc' %}selected{% endif %}>Name (A to Z)</option>
-        <option value="{{ path('client', {'sort': 'name_desc'}) }}" {% if app.request.query.get('sort') == 'name_desc' %}selected{% endif %}>Name (Z to A)</option>
+        <option value="{{ path('client', {'sort': 'name_asc'}) }}" {% if app.request.query.get('sort') == 'name_asc' %}selected{% endif %}>Plus bas </option>
+        <option value="{{ path('client', {'sort': 'name_desc'}) }}" {% if app.request.query.get('sort') == 'name_desc' %}selected{% endif %}>Plus Haut</option>
         <!-- Add more sorting options as needed -->
     </select>
 </div>
@@ -149,9 +149,9 @@
       <div class="row" id="circuitsContainer">
         {% set sortOrder = app.request.query.get('sort') %}
     {% if sortOrder == 'name_asc' %}
-        {% set sortedCircuits = circuits|sort((c1, c2) => c1.depart > c2.depart) %}
+        {% set sortedCircuits = circuits|sort((c1, c2) => c1.prix > c2.prix) %}
     {% elseif sortOrder == 'name_desc' %}
-        {% set sortedCircuits = circuits|sort((c1, c2) => c1.depart < c2.depart) %}
+        {% set sortedCircuits = circuits|sort((c1, c2) => c1.prix < c2.prix) %}
     {% else %}
         {% set sortedCircuits = circuits %}
     {% endif %}
@@ -245,6 +245,7 @@
       </div>
     </div>
   </div>
+  
 
   <div class="untree_co-section">
     <div class="container">

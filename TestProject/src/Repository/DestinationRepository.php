@@ -45,4 +45,13 @@ class DestinationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function search($query)
+{
+    return $this->createQueryBuilder('c')
+        ->andWhere('c.countries LIKE :query')
+        ->setParameter('query', '%' . $query . '%')
+        ->getQuery()
+        ->getResult();
+}
 }

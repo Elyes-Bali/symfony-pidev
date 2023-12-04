@@ -9,6 +9,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+<style>
+    body {
+        font-family: 'Nunito', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin: 20px 0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 16px;
+        border-bottom: 1px solid #dee2e6;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    tbody tr {
+        transition: background-color 0.3s;
+    }
+
+    tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        width: 100%; /* Make buttons equal in size */
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Optional: Add some spacing and center the table on the page */
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+    }
+
+    /* Optional: Responsive design for smaller screens */
+    @media (max-width: 768px) {
+        table {
+            overflow-x: auto;
+        }
+    }
+</style>
+
+
+
+
+
+
 
     <title>{% block tittle %}SB Admin 2 - Dashboard{% endblock %}</title>
 
@@ -65,18 +146,19 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Circuit</span>
-                </a>
+              
+                    <span> <a class="ml-3 text-white" href="{{ path('app_circuit_new') }}">   <i class="fas fa-fw fa-cog"></i>Ajouter Circuit</a></span></br></br>
+                    <a class="ml-3 text-white" href="{{ path('app_circuit_index') }}"> <i class="fas fa-fw fa-folder"></i>Tous Circuit</a>
+                    </br></br>
+              <a class="ml-3 text-white" href="{{ path('app_destination_index') }}"> <i class="fas fa-fw fa-folder"></i>Tous Destinations</a> </br></br>
+                    <a class="ml-3 text-white" href="{{ path('app_destination_new') }}"> <i class="fas fa-fw fa-cog"></i>Ajouter Destination</a>
+
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Circuit:</h6>
                         <!-- <a class="collapse-item" href="buttons.html">Buttons</a>
                         <a class="collapse-item" href="cards.html">Cards</a> -->
-                        <a class="collapse-item" href="{{ path('app_circuit_new') }}">>Ajouter Circuit</a>
-                        <a class="collapse-item" href="{{ path('app_circuit_index') }}">>Tous Circuit</a>
+                    
                     </div>
                 </div>
             </li>
@@ -383,7 +465,7 @@
 
                 </nav>
 
-{% block title %}Les Circuit{% endblock %}
+
 
 {% block body %}
     
@@ -427,7 +509,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_circuit_new') }}">Create new</a>
+   
 {% endblock %}
 
 </body>

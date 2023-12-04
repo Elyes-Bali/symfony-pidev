@@ -6,7 +6,7 @@
 
   <section class="col-md-6 ml-5">
     {% if unsplashPhotoData %}
-    <div id="photo-slider" class="carousel slide imging" data-ride="carousel" style="max-width: 600px; margin: auto;">
+    <div id="photo-slider" class="carousel slide " data-ride="carousel" style="max-width: 600px; margin: auto;">
         <div class="carousel-inner">
             {% for photo in unsplashPhotoData %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -60,7 +60,7 @@
         {% if weatherData %}
     <h2>Informations météorologiques pour:</br> {{ circuit.arrive }} </h2>
     <p><b>Temperature:</b> {{ weatherData.main.temp - 273.15 }}°C</p>
-    <p><b>Weather:</b> {{ weatherData.weather[0].description }}</p>
+    <p><b>Météo:</b> {{ weatherData.weather[0].description }}</p>
     <!-- Display other relevant weather information -->
 {% else %}
     <p>No weather data available.</p>

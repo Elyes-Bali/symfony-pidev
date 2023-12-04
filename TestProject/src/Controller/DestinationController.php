@@ -78,4 +78,16 @@ class DestinationController extends AbstractController
 
         return $this->redirectToRoute('app_destination_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/sea', name: 'search_destination', methods: ['GET'])]
+    public function search(Request $request, DestinationRepository $destinationRepository): Response
+    {
+        $query = $request->query->get('query');
+        $destinations = $destinationRepository->search($query);
+    
+        return $this->render('destination/index.html.twig', [
+            'destinations' => $destinations,
+        ]);
+    }
+
 }
