@@ -5,6 +5,9 @@
 
 {% block content %}
     <div class="card">
+    <br>
+    <input type="text" class="form-control" id="searchInput" placeholder="Search&hellip;">
+    <br><br>
         <h5 class="card-header">Users</h5>
         <div class="table-responsive text-nowrap">
             <table class="table">
@@ -34,10 +37,47 @@
 
                 </tbody>
             </table>
+             <script>
+        function generatePDF() {
+            fetch('{{ path('generate_pdf') }}', {
+                method: 'GET',
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'users.pdf';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            })
+            .catch(error => console.error('Error generating PDF:', error));
+        }
+    </script>
         </div>
     </div>
 
-
+<script>
+        function filterTable() {
+            const filter = document.getElementById('searchInput').value.toUpperCase();
+            const rows = document.querySelectorAll('table tr');
+            for (let i = 1; i < rows.length; i++) {
+                const cols = rows[i].querySelectorAll('td');
+                let visible = false;
+                for (let j = 0; j < cols.length; j++) {
+                    const cell = cols[j];
+                    if (cell.innerText.toUpperCase().indexOf(filter) > -1) {
+                        visible = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = visible ? '' : 'none';
+            }
+        }
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+	</script>
+	<br>
 
 {% endblock %}
 

@@ -24,6 +24,22 @@ class BackendController extends AbstractController
 {
 
     
+     /**
+     * @Route("/admin", name="admin")
+     */
+    public function indexAdmin(): Response
+    {
+
+        return $this->render('base.back.html.twig');
+    }
+     /**
+     * @Route("/client", name="client")
+     */
+    public function indexclient(): Response
+    {
+
+        return $this->render('front.html.twig');
+    }
 
 //*****************************************************************************************user back ***********************************************************************
 
