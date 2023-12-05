@@ -1,0 +1,63 @@
+{% extends 'base.back.html.twig' %}
+{% block title %}Utilisateur{% endblock %}
+{% block body %}
+
+    {{ form(search) }}
+    <div class="card">
+        <h5 class="card-header">Table Caption</h5>
+        <div class="table-responsive text-nowrap">
+            {% if usres is not empty %}
+                <table class="table">
+                    <caption class="ms-4">Liste utilisateurs</caption>
+                    <thead>
+                        <tr>
+                    <th>Prenom</th>
+                    <th>Nom</th>
+                    <th>email</th>
+                    <th>Password</th>
+                    <th>Age</th>
+                    <th>téléphone</th>
+                    <th>action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for a in users %}
+                            <tr>
+                                <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ a.id }}</strong>
+                                </td>
+                                <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ a.lastName() }}</strong>
+                                </td>
+                                <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ a.email }}</strong>
+                                </td>
+                                <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ a.password }}</strong>
+                                </td>
+                               
+ <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ a.tel }}</strong>
+                                </td>
+                               
+
+                                <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                    <strong>{{ a.age }}</strong>
+                                </td>
+
+                                      <td> <a href="{{ path('deleteC',{'id':a.id}) }}"> Delete</a> <a href="{{ path('upc',{'id':a.id}) }}"> update</a> </td>
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Aucun résultat trouvé.</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

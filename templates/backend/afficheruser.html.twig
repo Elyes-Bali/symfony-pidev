@@ -1,0 +1,46 @@
+{% extends 'base.back.html.twig' %}
+
+{% block title %}Best Trip - Dashboard{% endblock %}
+
+
+{% block content %}
+    <div class="card">
+        <h5 class="card-header">Users</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                <tr>
+
+                    <th>Prenom</th>
+                      <th>Nom</th>
+                    <th>email</th>
+                    <th>Password</th>
+                    <th>Age</th>
+                    <th>téléphone</th>
+                    <th>action</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr {% for a in User %}>
+                    <td> {{ a.lastName }}</td>
+                    <td> {{ a.nom }}</td>
+                    <td> {{ a.email }}</td>
+                    <td> {{ a.password }}</td>
+                    <td> {{ a.age}}</td>
+                    <td> {{ a.tel}}</td>
+                    <td> <a href="{{ path('deleteC',{'id':a.id}) }}"> Delete</a> <a href="{{ path('upc',{'id':a.id}) }}"> update</a> </td>
+                </tr {% endfor %}>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
