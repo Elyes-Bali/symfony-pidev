@@ -1,15 +1,21 @@
 {% include 'front.html.twig' %}
 
-
-
 {% block title %}Sélection d'événement{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
+        <!-- Initialize the predefinedImages array -->
+        {% set predefinedImages = ['beachparty.jpg', 'colorfestival.jpg', 'laternfestival.jpg', 'skydinner.jpg', 'YACHTparty.jpg'] %}
+
+        <!-- Display the cards for each event -->
         <div class="row">
-            {% for evenement in evenements %}
+            {% for key, evenement in evenements %}
                 <div class="col-md-4 mb-4">
-                    <div class="card">
+                    <div class="card event-card">
+                        {% set imageSrc = (key < 5) ? asset('images/' ~ predefinedImages[key]) : (evenement.image is not null) ? asset(evenement.image) : '#' %}
+                        
+                        <img src="{{ imageSrc }}" class="card-img-top event-image" alt="Event Image">
+                        
                         <div class="card-body">
                             <h5 class="card-title">{{ evenement.nom }}</h5>
                             <p class="card-text"><strong>Description:</strong> {{ evenement.description }}</p>
@@ -25,5 +31,16 @@
             {% endfor %}
         </div>
     </div>
-{% endblock %}
 
+    <style>
+        /* Set fixed dimensions for the card and image */
+        .event-card {
+            height: 100%;
+        }
+
+        .event-image {
+            height: 200px; /* Set your desired height */
+            object-fit: cover;
+        }
+    </style>
+{% endblock %}

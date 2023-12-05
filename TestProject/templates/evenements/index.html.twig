@@ -7,11 +7,17 @@
         <h1>Evenements index</h1>
 
         <div class="row">
-            {% for evenement in evenements %}
+            {% set predefinedImages = ['beachparty.jpg', 'colorfestival.jpg', 'laternfestival.jpg', 'skydinner.jpg', 'YACHTparty.jpg'] %}
+            
+            {% for key, evenement in evenements %}
                 <div class="col-md-4 mb-4">
-                    <div class="card">
-                    
-                        <img src="{{ evenement.image }}" class="card-img-top" alt="Event Image">
+                    <div class="card" style="height: 100%;">
+                        {% if key < 5 %}
+                            <img src="{{ asset('images/' ~ predefinedImages[key]) }}" class="card-img-top event-image" alt="Event Image">
+                        {% else %}
+                            <img src="{{ asset(evenement.image) }}" class="card-img-top event-image" alt="Event Image">
+                        {% endif %}
+                        
                         <div class="card-body">
                             <h5 class="card-title">{{ evenement.nom }}</h5>
                             <p class="card-text">
@@ -38,22 +44,23 @@
             {% endfor %}
         </div>
 
-       <!-- Pagination -->
- 
-<style>
-    .pagination {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-</style>
+        <!-- Pagination -->
+        <style>
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
 
-<div class="pagination-container">
-    {{ knp_pagination_render(evenements) }}
-</div>
+            .event-image {
+                height: 200px; /* Set your desired height */
+                object-fit: cover;
+            }
+        </style>
+        <div class="pagination-container">
+            {{ knp_pagination_render(evenements) }}
+        </div>
 
         <a href="{{ path('app_evenements_new') }}" class="btn btn-success mt-4"> ➕ Ajouter</a>
     </div>
-    
-
 {% endblock %}
